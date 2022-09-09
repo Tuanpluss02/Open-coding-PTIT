@@ -30,6 +30,13 @@ void precomputation()
 
 bool ckeck(ll n)
 {
+    if (n < N)
+        return primes[n] == n;
+    int sq = sqrt(n);
+    for (int i = 2; i <= sq; i++)
+        if (n % i == 0)
+            return false;
+    return true;
 }
 
 // bool check(ll n)
