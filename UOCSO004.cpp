@@ -6,89 +6,65 @@ using namespace std;
     cout.tie(0);
 #define ll long long
 #define N 100000000
-bitset<N> bits;
+#define mod 100000007
 
-int primes[N];
-void precomputation()
+int *prime = new int[N], idx = 0;
+int *m = new int[N];
+
+void sieve()
 {
-    for (int i = 2; i < N; i += 2)
-        primes[i] = 2;
-    int sq = sqrt(N - 1);
-    for (int i = 3; i < N; i += 2)
-        if (!bits[i])
+    memset(m, 0, sizeof(m));
+#define MAXL (N >> 5) + 1
+#define GET(x) (mark[x >> 5] >> (x & 31) & 1)
+#define SET(x) (mark[x >> 5] |= 1 << (x & 31))
+    static int mark[MAXL] = {};
+    SET(1);
+    int n = 1e9;
+    for (int i = 2; i <= n; i++)
+    {
+        if (!GET(i))
         {
-            primes[i] = i;
-            if (i <= sq)
-                for (int j = i * i; j < N; j += 2 * i)
-                    if (!bits[j])
-                    {
-                        primes[j] = i;
-                        bits[j] = 1;
-                    }
+            for (int k = n / i, j = i * k; k >= i; k--, j -= i)
+                SET(j);
+            prime[idx++] = i;
+            m[i] = true;
         }
+    }
 }
 
-bool ckeck(ll n)
+void solve()
 {
-    if (n < N)
-        return primes[n] == n;
-    int sq = sqrt(n);
-    for (int i = 2; i <= sq; i++)
-        if (n % i == 0)
-            return false;
-    return true;
+    ll n;
+    cin >> n;
+    ll i = 0;
+    while (m[n] == false)
+    {
+        ll count = 0;
+        while (n % prime[i] == 0)
+        {
+            count++;
+            n /= prime[i];
+        }
+        if (count >= 2)
+        {
+            cout << "YES" << endl;
+            return;
+        }
+        i++;
+    }
+    cout << "NO" << endl;
 }
-
-// bool check(ll n)
-// {
-//     ll test = n;
-//     ll res = 1;
-//     map<ll, ll> m;
-//     while (!(n & 1))
-//     {
-//         m[2]++;
-//         n >>= 1;
-//     }
-//     while (n % 3 == 0)
-//     {
-//         m[3]++;
-//         n /= 3;
-//     }
-//     for (int i = 5; i * i <= n; i += 6)
-//     {
-//         while (n % i == 0)
-//         {
-//             m[i]++;
-//             n /= i;
-//         }
-//         while (n % (i + 2) == 0)
-//         {
-//             m[i + 2]++;
-//             n /= (i + 2);
-//         }
-//     }
-//     if (n > 1)
-//         m[n]++;
-//     for (auto i : m)
-//     {
-//         res *= i.first;
-//     }
-//     // cout << res << endl;
-//     return res < test;
-// }
 
 int main()
 {
     faster();
+    sieve();
     int t;
     cin >> t;
     while (t--)
     {
-        ll n;
-        cin >> n;
-        if (check(n))
-            cout << "YES" << endl;
-        else
-            cout << "NO" << endl;
+        solve();
     }
+    system("pause");
+    return 0;
 }
