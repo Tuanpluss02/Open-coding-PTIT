@@ -1,12 +1,32 @@
 #include <bits/stdc++.h>
-using namespace std;
+
+#define faster()                  \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+#define clear() cin.ignore(numeric_limits<streamsize>::max(), '\n');
+#define pb push_back
+#define fi first
+#define se second
+#define Mod 1000000007
+#define ld long double
 #define ll long long
+#define lli unsigned long long int
+#define For(i, a, b) for (int i = a; i < b; ++i)
+#define Forr(i, a, b) for (int i = a; i >= b; --i)
+#define vec vector<ll>
+#define sortu(c) sort(c.begin(), c.end())
+#define sortd(c) sort(c.rbegin(), c.rend())
+#define rev(c) reverse(c.begin(), c.end())
+#define pause() system("pause");
+
+using namespace std;
 
 const int arr[4] = {0, 1, 4, 9};
 int n;
-bool found = false;
+bool ok = false;
 
-void rec(ll cur, ll num)
+void process(ll cur, ll num)
 {
     if (num == 0)
     {
@@ -17,7 +37,7 @@ void rec(ll cur, ll num)
             if (k * k == cur)
             {
                 cout << cur << endl;
-                found = true;
+                ok = true;
             }
         }
     }
@@ -25,16 +45,16 @@ void rec(ll cur, ll num)
     {
         for (int i = 0; i < 4; i++)
         {
-            if (found)
+            if (ok)
                 return;
-            rec(cur * 10 + arr[i], num - 1);
+            process(cur * 10 + arr[i], num - 1);
         }
     }
 }
 
 int main()
 {
-    int t;
+    int t = 1;
     cin >> t;
     while (t--)
     {
@@ -53,7 +73,7 @@ int main()
             cout << x << endl;
         }
         else
-            rec(0, n);
-        found = false;
+            process(0, n);
+        ok = false;
     }
 }

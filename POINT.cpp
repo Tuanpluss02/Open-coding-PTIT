@@ -2,10 +2,10 @@
 using namespace std;
 #define ll long long
 
-long double dist(double x1, double y1, double x2, double y2)
-{
-    return sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
-}
+// long double dist(double x1, double y1, double x2, double y2)
+// {
+//     return sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+// }
 
 int main()
 {
@@ -24,7 +24,7 @@ int main()
     {
         for (ll j = 0; j < n; j++)
         {
-            cout << fixed << setprecision(2) << dist(v[i].first, v[i].second, v[j].first, v[j].second) << " ";
+            cout << fixed << setprecision(2) << hypot(v[i].first - v[j].first, v[i].second - v[j].second) << " ";
         }
         cout << endl;
     }

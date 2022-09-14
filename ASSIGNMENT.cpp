@@ -89,13 +89,15 @@ void solve()
 int main()
 {
     faster();
+    // freopen("bignumber.in", "r", stdin);
+    // freopen("bignumber.out", "w", stdout);
     int test = 1;
     cin >> test;
-    // clear();
+    clear();
     while (test--)
     {
         solve();
     }
-    pause();
+    // pause();
     return 0;
 }

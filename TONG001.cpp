@@ -22,7 +22,7 @@
 
 using namespace std;
 
-ll sum(int n)
+ll cal(int n)
 {
     ll tmp = (n + 1) / 2;
     return tmp * tmp;
@@ -32,7 +32,7 @@ void solve()
 {
     ll l, r;
     cin >> l >> r;
-    cout << sum(r) - sum(l - 1) << endl;
+    cout << cal(r) - cal(l - 1) << endl;
 }
 
 int main()
@@ -48,15 +48,3 @@ int main()
     pause();
     return 0;
 }
-/*
-9 (n+1)*(n+1)/4
-5 7 = 12
-16 - 4 =12
-
-4 7
-12
-
-4  8
-
-
- */
