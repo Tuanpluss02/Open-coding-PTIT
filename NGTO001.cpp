@@ -21,34 +21,55 @@
 #define pause() system("pause");
 
 using namespace std;
-
-const int arr[7] = {0, 1, 2, 3, 5, 7, 9};
-int n;
-bool ok = false;
-
-void process(ll cur, ll num)
+int prime[5800000], idx = 0;
+void sieve()
 {
-    if (num == 0)
+#define MAXL (100000000 >> 5) + 1
+#define GET(x) (mark[x >> 5] >> (x & 31) & 1)
+#define SET(x) (mark[x >> 5] |= 1 << (x & 31))
+    static int mark[MAXL] = {};
+    SET(1);
+    int n = 100000000;
+    for (int i = 2; i <= n; i++)
     {
-        }
-    else
-    {
-        for (int i = 0; i < 7; i++)
+        if (!GET(i))
         {
-            if (ok)
-                return;
-            process(cur * 10 + arr[i], num - 1);
+            for (int k = n / i, j = i * k; k >= i; k--, j -= i)
+                SET(j);
+            prime[idx++] = i;
         }
     }
 }
 
+bool check(ll n)
+{
+    string s = to_string(n);
+    for (char i : s)
+    {
+        if (i != '2' && i != '3' && i != '5' && i != '7')
+            return false;
+    }
+    return true;
+}
+
 void solve()
 {
+    ll n, res = 0;
+    cin >> n;
+    int index = 0;
+    while (prime[index] <= n)
+    {
+        if (check(prime[index]))
+            res++;
+        index++;
+    }
+    cout << res << endl;
 }
 
 int main()
 {
     faster();
+    sieve();
     int test = 1;
     cin >> test;
     // clear();

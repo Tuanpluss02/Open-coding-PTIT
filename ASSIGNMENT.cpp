@@ -89,8 +89,8 @@ void solve()
 int main()
 {
     faster();
-    // freopen("bignumber.in", "r", stdin);
-    // freopen("bignumber.out", "w", stdout);
+    freopen("bignumber.in", "r", stdin);
+    freopen("bignumber.out", "w", stdout);
     int test = 1;
     cin >> test;
     clear();
