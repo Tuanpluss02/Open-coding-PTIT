@@ -22,29 +22,41 @@
 
 using namespace std;
 
-const ll arr[9] = {9, 90, 900, 9000, 90000, 900000, 9000000, 90000000, 900000000};
+const int arr[7] = {0, 1, 2, 3, 5, 7, 9};
+int n;
+bool ok = false;
+
+void process(ll cur, ll num)
+{
+    if (num == 0)
+    {
+        }
+    else
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            if (ok)
+                return;
+            process(cur * 10 + arr[i], num - 1);
+        }
+    }
+}
+
+void solve()
+{
+}
 
 int main()
 {
-    int t;
-    cin >> t;
-    while (t--)
+    faster();
+    int test = 1;
+    cin >> test;
+    // clear();
+    while (test--)
     {
-        int n, a, b;
-        cin >> n;
-        string s(n, 1);
-        int x = s.size();
-        if (x & 1)
-        {
-            x -= 1;
-            a = x / 2;
-        }
-        else
-        {
-            x -= 2;
-            a = x / 2;
-        }
-        ll res = 9 * pow(10, a);
-        cout << res << endl;
+        solve();
     }
+    pause();
+    return 0;
 }
+// 0 1 4 9

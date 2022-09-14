@@ -22,29 +22,28 @@
 
 using namespace std;
 
-const ll arr[9] = {9, 90, 900, 9000, 90000, 900000, 9000000, 90000000, 900000000};
+const ll number[] = {6, 28, 496, 8128, 33550336, 8589869056, 137438691328, 2305843008139952128};
+
+void solve()
+{
+    int n;
+    cin >> n;
+    if (binary_search(number, number + 8, n))
+        cout << "1" << endl;
+    else
+        cout << "0" << endl;
+}
 
 int main()
 {
-    int t;
-    cin >> t;
-    while (t--)
+    faster();
+    int test = 1;
+    cin >> test;
+    // clear();
+    while (test--)
     {
-        int n, a, b;
-        cin >> n;
-        string s(n, 1);
-        int x = s.size();
-        if (x & 1)
-        {
-            x -= 1;
-            a = x / 2;
-        }
-        else
-        {
-            x -= 2;
-            a = x / 2;
-        }
-        ll res = 9 * pow(10, a);
-        cout << res << endl;
+        solve();
     }
+    // pause();
+    return 0;
 }

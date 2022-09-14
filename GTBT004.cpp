@@ -22,29 +22,31 @@
 
 using namespace std;
 
-const ll arr[9] = {9, 90, 900, 9000, 90000, 900000, 9000000, 90000000, 900000000};
+float recur(int n, float x)
+{
+    if (n == 1)
+        return sqrt(x);
+    return sqrt(pow(x, n) + recur(n - 1, x));
+}
+
+void solve()
+{
+    int n;
+    float x;
+    cin >> n >> x;
+    cout << fixed << setprecision(3) << recur(n, x) << endl;
+}
 
 int main()
 {
-    int t;
-    cin >> t;
-    while (t--)
+    faster();
+    int test = 1;
+    cin >> test;
+    // clear();
+    while (test--)
     {
-        int n, a, b;
-        cin >> n;
-        string s(n, 1);
-        int x = s.size();
-        if (x & 1)
-        {
-            x -= 1;
-            a = x / 2;
-        }
-        else
-        {
-            x -= 2;
-            a = x / 2;
-        }
-        ll res = 9 * pow(10, a);
-        cout << res << endl;
+        solve();
     }
+    // pause();
+    return 0;
 }

@@ -76,4 +76,9 @@ int main()
             process(0, n);
         ok = false;
     }
+    pause();
 }
+
+/*
+
+*/

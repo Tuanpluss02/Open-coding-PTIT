@@ -1,32 +1,50 @@
 #include <bits/stdc++.h>
-using namespace std;
-#define ll long long
 
-// long double dist(double x1, double y1, double x2, double y2)
-// {
-//     return sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
-// }
+#define faster()                  \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+#define clear() cin.ignore(numeric_limits<streamsize>::max(), '\n');
+#define pb push_back
+#define fi first
+#define se second
+#define Mod 1000000007
+#define ld long double
+#define ll long long
+#define lli unsigned long long int
+#define For(i, a, b) for (int i = a; i < b; ++i)
+#define Forr(i, a, b) for (int i = a; i >= b; --i)
+#define vec vector<ll>
+#define sortu(c) sort(c.begin(), c.end())
+#define sortd(c) sort(c.rbegin(), c.rend())
+#define rev(c) reverse(c.begin(), c.end())
+#define pause() system("pause");
+
+using namespace std;
+
+class Point
+{
+private:
+    double x, y;
+
+public:
+    Point();
+};
+
+void solve()
+{
+}
 
 int main()
 {
-    // freopen("points.inp", "r", stdin);
-    // freopen("points.out", "w", stdout);
-    ll n;
-    double x, y;
-    cin >> n;
-    vector<pair<double, double>> v(n);
-    for (ll i = 0; i < n; i++)
+    faster();
+    int test = 1;
+    cin >> test;
+    // clear();
+    while (test--)
     {
-        cin >> x >> y;
-        v[i] = {x, y};
+        solve();
     }
-    for (ll i = 0; i < n; i++)
-    {
-        for (ll j = 0; j < n; j++)
-        {
-            cout << fixed << setprecision(2) << hypot(v[i].first - v[j].first, v[i].second - v[j].second) << " ";
-        }
-        cout << endl;
-    }
+    pause();
     return 0;
 }
