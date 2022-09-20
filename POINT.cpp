@@ -22,29 +22,49 @@
 
 using namespace std;
 
-class Point
+double Dist(double x1, double y1, double x2, double y2)
 {
-private:
-    double x, y;
-
-public:
-    Point();
-};
+    return sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+}
 
 void solve()
 {
+    ll n;
+    double x, y;
+    cin >> n;
+    vector<pair<double, double>> v(n);
+    For(i, 0, n)
+    {
+        cin >> x >> y;
+        v[i] = {x, y};
+    }
+    For(i, 0, n)
+    {
+        For(j, 0, n)
+        {
+            cout << fixed << setprecision(2) << Dist(v[i].fi, v[i].se, v[j].fi, v[j].se);
+            if (j != n - 1)
+            {
+                cout << " ";
+            }
+        }
+        if (i != n - 1)
+            cout << endl;
+    }
+    // thay cho qua test nay ao qua :v
 }
 
 int main()
 {
-    faster();
+    freopen("points.inp", "r", stdin);
+    freopen("points.out", "w", stdout);
     int test = 1;
-    cin >> test;
+    // cin >> test;
     // clear();
     while (test--)
     {
         solve();
     }
-    pause();
+    // pause();
     return 0;
 }
