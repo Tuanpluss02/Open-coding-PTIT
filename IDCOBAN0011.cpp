@@ -14,7 +14,7 @@ string decToBin(ll n)
     while (n >= 1)
     {
         res += to_string(n % 2);
-        n /= 2;
+        n >>= 1;
     }
     reverse(res.begin(), res.end());
     return res;
@@ -28,6 +28,8 @@ int main()
     {
         ll n;
         cin >> n;
-        cout << decToBin(n) << endl;
+        cout << decToBin(n);
+        if (t)
+            cout << " " << endl;
     }
 }

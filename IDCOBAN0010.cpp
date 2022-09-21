@@ -29,13 +29,12 @@ void solve()
 {
     ll n;
     cin >> n;
-    if (n > 18)
+    if (n > 18 || n < 1)
     {
         cout << -1 << endl;
         return;
     }
-    n = abs(n);
-    cout << arr[n - 1] << endl;
+    cout << arr[n - 1] << "  ";
 }
 
 int main()
@@ -47,7 +46,9 @@ int main()
     while (test--)
     {
         solve();
+        if (test)
+            cout << endl;
     }
-    pause();
+    // pause();
     return 0;
 }
