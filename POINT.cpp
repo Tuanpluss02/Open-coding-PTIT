@@ -51,7 +51,7 @@ void solve()
         if (i != n - 1)
             cout << endl;
     }
-    // thay cho qua test nay ao qua :v
+    // thay lam test bủh qua :v
 }
 
 int main()
