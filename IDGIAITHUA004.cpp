@@ -22,21 +22,14 @@
 
 using namespace std;
 
-ll cal(ll l, ll r)
-{
-    return floor(sqrt(r)) - ceil(sqrt(l)) + 1;
-}
-
 void solve()
 {
-    ll l, r;
-    cin >> l >> r;
-    cout << cal(l, r) << '\n';
 }
 
 int main()
 {
     faster();
+
     int test = 1;
     cin >> test;
     // clear();

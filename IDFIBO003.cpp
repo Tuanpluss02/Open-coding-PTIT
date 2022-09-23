@@ -22,21 +22,38 @@
 
 using namespace std;
 
-ll cal(ll l, ll r)
-{
-    return floor(sqrt(r)) - ceil(sqrt(l)) + 1;
-}
+ll fib[93];
+map<ll, ll> m;
 
+void process()
+{
+    fib[0] = 0;
+    fib[1] = 1;
+    For(i, 2, 94)
+    {
+        fib[i] = fib[i - 1] + fib[i - 2];
+        m[fib[i]] = 1;
+    }
+}
 void solve()
 {
-    ll l, r;
-    cin >> l >> r;
-    cout << cal(l, r) << '\n';
+    ll n;
+    cin >> n;
+    n++;
+    while (true)
+    {
+        if (!m.count(n))
+        {
+            cout << n << endl;
+            return;
+        }
+        n++;
+    }
 }
-
 int main()
 {
     faster();
+    process();
     int test = 1;
     cin >> test;
     // clear();

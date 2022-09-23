@@ -21,17 +21,41 @@
 #define pause() system("pause");
 
 using namespace std;
-
-ll cal(ll l, ll r)
+void print(vec &a)
 {
-    return floor(sqrt(r)) - ceil(sqrt(l)) + 1;
+    for (int i = 0; i < a.size(); i++)
+        cout << a[i] << " ";
+    cout << endl;
+}
+
+void per(vec &a, ll k)
+{
+    if (k == 1)
+    {
+        print(a);
+        return;
+    }
+    for (int i = 0; i < k - 1; i++)
+    {
+        per(a, k - 1);
+        if (k % 2 == 0)
+            swap(a[i], a[k - 1]);
+        else
+            swap(a[0], a[k - 1]);
+    }
+    per(a, k - 1);
 }
 
 void solve()
 {
-    ll l, r;
-    cin >> l >> r;
-    cout << cal(l, r) << '\n';
+    int n;
+    cin >> n;
+    vec v(n);
+    For(i, 1, n + 1)
+    {
+        v[i - 1] = i;
+    }
+    per(v, n);
 }
 
 int main()

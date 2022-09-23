@@ -19,19 +19,39 @@
 #define sortd(c) sort(c.rbegin(), c.rend())
 #define rev(c) reverse(c.begin(), c.end())
 #define pause() system("pause");
-
+#define PI 3.14159265358979323846
 using namespace std;
 
-ll cal(ll l, ll r)
+ll factorial(ll n)
 {
-    return floor(sqrt(r)) - ceil(sqrt(l)) + 1;
+    ll ans = 1;
+    for (int i = 1; i <= n; i++)
+    {
+        ans *= i;
+    }
+    return ans;
+}
+
+float sinn(float x)
+{
+    int k = 1;
+    float kq, tg;
+    kq = tg = x;
+
+    while (kq += tg *= -x * x / (2 * k) / (2 * k++ + 1), fabs(tg) > 0.00001)
+        ;
+    return kq;
 }
 
 void solve()
 {
-    ll l, r;
-    cin >> l >> r;
-    cout << cal(l, r) << '\n';
+    float n;
+    cin >> n;
+    // if (n > 20)
+    // {
+    //     n = n * PI / 180;
+    // }
+    cout << fixed << setprecision(6) << sinn(n) << endl;
 }
 
 int main()

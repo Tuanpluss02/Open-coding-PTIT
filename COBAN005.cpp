@@ -8,7 +8,7 @@
 #define pb push_back
 #define fi first
 #define se second
-#define Mod 1000000007
+#define MOD 1000000007
 #define ld long double
 #define ll long long
 #define lli unsigned long long int
@@ -22,16 +22,20 @@
 
 using namespace std;
 
-ll cal(ll l, ll r)
-{
-    return floor(sqrt(r)) - ceil(sqrt(l)) + 1;
-}
-
 void solve()
 {
-    ll l, r;
-    cin >> l >> r;
-    cout << cal(l, r) << '\n';
+    string a, b;
+    cin >> a >> b;
+    long long A = 0, B = 0;
+    for (char c : a)
+        (A = A * 10 + c - '0') % MOD;
+    for (char c : b)
+        (B = B * 10 + c - '0') % (MOD - 1);
+    long long ans = 1;
+    for (; B; A = A * A % MOD, B /= 2)
+        if (B & 1)
+            (ans *= A) %= MOD;
+    cout << ans << '\n';
 }
 
 int main()

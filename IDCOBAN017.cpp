@@ -22,16 +22,28 @@
 
 using namespace std;
 
-ll cal(ll l, ll r)
+ll kadane(vector<ll> a, ll n)
 {
-    return floor(sqrt(r)) - ceil(sqrt(l)) + 1;
+    ll res = INT_MIN, tmp = 0;
+    For(i, 0, n)
+    {
+        tmp = tmp + a[i];
+        if (res < tmp)
+            res = tmp;
+        if (tmp < 0)
+            tmp = 0;
+    }
+    return res;
 }
 
 void solve()
 {
-    ll l, r;
-    cin >> l >> r;
-    cout << cal(l, r) << '\n';
+    ll n;
+    cin >> n;
+    vector<ll> a(n);
+    For(i, 0, n) cin >> a[i];
+    ll ans = kadane(a, n);
+    cout << ans << endl;
 }
 
 int main()

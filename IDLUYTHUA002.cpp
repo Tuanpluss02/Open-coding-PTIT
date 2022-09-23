@@ -22,16 +22,24 @@
 
 using namespace std;
 
-ll cal(ll l, ll r)
+ll power(ll a, ll n)
 {
-    return floor(sqrt(r)) - ceil(sqrt(l)) + 1;
+    ll ans = 1;
+    while (n)
+    {
+        if (n & 1)
+            ans = (ans * a) % Mod;
+        a = (a * a) % Mod;
+        n >>= 1;
+    }
+    return ans;
 }
 
 void solve()
 {
-    ll l, r;
-    cin >> l >> r;
-    cout << cal(l, r) << '\n';
+    ll a, n;
+    cin >> a >> n;
+    cout << power(a, n) << endl;
 }
 
 int main()

@@ -22,23 +22,54 @@
 
 using namespace std;
 
-ll cal(ll l, ll r)
+ll binary_search(ll a[], ll l, ll r, ll x)
 {
-    return floor(sqrt(r)) - ceil(sqrt(l)) + 1;
+    while (l <= r)
+    {
+        ll mid = (l + r) / 2;
+        if (a[mid] == x)
+            return mid + 1;
+        if (a[mid] < x)
+            l = mid + 1;
+        else
+            r = mid - 1;
+    }
+    return 0;
 }
 
 void solve()
 {
-    ll l, r;
-    cin >> l >> r;
-    cout << cal(l, r) << '\n';
+    ll n, m;
+    cin >> n >> m;
+    ll tmp;
+    map<ll, ll> mp;
+    For(i, 0, n)
+    {
+        cin >> tmp;
+        if (!mp.count(tmp))
+            mp[tmp] = i + 1;
+    }
+    For(i, 0, m)
+    {
+        cin >> tmp;
+        if (mp.count(tmp))
+        {
+            cout << mp[tmp];
+        }
+        else
+        {
+            cout << 0;
+        }
+        if (i != m - 1)
+            cout << " ";
+    }
 }
 
 int main()
 {
     faster();
     int test = 1;
-    cin >> test;
+    // cin >> test;
     // clear();
     while (test--)
     {

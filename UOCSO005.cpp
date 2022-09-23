@@ -22,16 +22,39 @@
 
 using namespace std;
 
-ll cal(ll l, ll r)
-{
-    return floor(sqrt(r)) - ceil(sqrt(l)) + 1;
-}
-
 void solve()
 {
-    ll l, r;
-    cin >> l >> r;
-    cout << cal(l, r) << '\n';
+    ll n;
+    cin >> n;
+    map<ll, ll> m;
+    while (!(n & 1))
+    {
+        m[2]++;
+        n >>= 1;
+    }
+    while (n % 3 == 0)
+    {
+        m[3]++;
+        n /= 3;
+    }
+    for (ll i = 5; i * i <= n; i += 6)
+    {
+        while (n % i == 0)
+        {
+            m[i]++;
+            n /= i;
+        }
+        while (n % (i + 2) == 0)
+        {
+            m[i + 2]++;
+            n /= (i + 2);
+        }
+    }
+    if (n > 1)
+        m[n]++;
+    cout << m.size() << endl;
+    for (auto i : m)
+        cout << i.fi << " " << i.se << endl;
 }
 
 int main()

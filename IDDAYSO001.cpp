@@ -22,23 +22,40 @@
 
 using namespace std;
 
-ll cal(ll l, ll r)
+bool check(vec a, ll n)
 {
-    return floor(sqrt(r)) - ceil(sqrt(l)) + 1;
+    ll x = a[1] - a[0];
+    For(i, 2, n)
+    {
+        if (a[i] <= a[i - 1] || a[i] - a[i - 1] != x)
+            return false;
+    }
+    return true;
 }
 
 void solve()
 {
-    ll l, r;
-    cin >> l >> r;
-    cout << cal(l, r) << '\n';
+    ll n;
+    cin >> n;
+    vec v(n);
+    For(i, 0, n)
+    {
+        cin >> v[i];
+    }
+    if (n == 1)
+    {
+        cout << "NO";
+        return;
+    }
+
+    cout << (check(v, n) ? "YES" : "NO");
 }
 
 int main()
 {
     faster();
     int test = 1;
-    cin >> test;
+    // cin >> test;
     // clear();
     while (test--)
     {

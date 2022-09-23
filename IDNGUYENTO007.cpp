@@ -22,21 +22,45 @@
 
 using namespace std;
 
-ll cal(ll l, ll r)
+map<ll, ll> prime;
+ll idx = 0;
+void sieve()
 {
-    return floor(sqrt(r)) - ceil(sqrt(l)) + 1;
+#define MAXL (100000000 >> 5) + 1
+#define GET(x) (mark[x >> 5] >> (x & 31) & 1)
+#define SET(x) (mark[x >> 5] |= 1 << (x & 31))
+    static int mark[MAXL] = {};
+    SET(1);
+    int n = 100000;
+    for (int i = 2; i <= n; i++)
+    {
+        if (!GET(i))
+        {
+            for (int k = n / i, j = i * k; k >= i; k--, j -= i)
+                SET(j);
+            prime[i] = idx++;
+        }
+    }
 }
 
 void solve()
 {
-    ll l, r;
-    cin >> l >> r;
-    cout << cal(l, r) << '\n';
+    ll n, m;
+    cin >> n >> m;
+    Forr(i, m - 1, n + 1)
+    {
+        if (prime.count(i))
+        {
+            cout << i << endl;
+            return;
+        }
+    }
 }
 
 int main()
 {
     faster();
+    sieve();
     int test = 1;
     cin >> test;
     // clear();

@@ -22,16 +22,18 @@
 
 using namespace std;
 
-ll cal(ll l, ll r)
-{
-    return floor(sqrt(r)) - ceil(sqrt(l)) + 1;
-}
-
 void solve()
 {
-    ll l, r;
-    cin >> l >> r;
-    cout << cal(l, r) << '\n';
+    int n;
+    cin >> n;
+    ll fact = 1;
+    float ans = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        fact *= i;
+        ans = pow(ans + fact, 1.0 / (i + 1));
+    }
+    cout << fixed << setprecision(3) << ans << endl;
 }
 
 int main()

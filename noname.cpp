@@ -22,28 +22,25 @@
 
 using namespace std;
 
-ll cal(ll l, ll r)
+ll sum(ll n)
 {
-    return floor(sqrt(r)) - ceil(sqrt(l)) + 1;
-}
-
-void solve()
-{
-    ll l, r;
-    cin >> l >> r;
-    cout << cal(l, r) << '\n';
+    return n * (n + 1) / 2;
 }
 
 int main()
 {
-    faster();
-    int test = 1;
-    cin >> test;
-    // clear();
-    while (test--)
+    int t;
+    cin >> t;
+    while (t--)
     {
-        solve();
+        ll n;
+        float x;
+        cin >> n >> x;
+        float res = 0;
+        for (int i = 1; i <= n; i++)
+        {
+            res += pow(x, i) / sum(i);
+        }
+        cout << fixed << setprecision(3) << res << endl;
     }
-    // pause();
-    return 0;
 }

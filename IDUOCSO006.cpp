@@ -22,11 +22,22 @@
 
 using namespace std;
 
-void solve()
+ll power(ll a, ll b)
 {
-    ll n;
-    cin >> n;
-    ll tmp = n;
+    ll ans = 1;
+    while (b)
+    {
+        if (b & 1)
+            ans = (ans * a);
+        a = (a * a);
+        b >>= 1;
+    }
+    return ans;
+}
+
+bool process(ll n, ll m)
+{
+    ll x = n;
     map<ll, ll> mp;
     while (!(n & 1))
     {
@@ -51,24 +62,39 @@ void solve()
             n /= (i + 2);
         }
     }
-    if (n > 2)
+    if (n > 1)
         mp[n]++;
-    ll res = 1;
+    ll ans = 1;
     for (auto i : mp)
-        res *= i.fi;
-    if (res < tmp)
-        cout << "YES" << endl;
-    else
-        cout << "NO" << endl;
+    {
+        ans *= (power(i.fi, i.se + 1) - 1) / (i.fi - 1);
+    }
+    if (ans - x == m)
+        return true;
+    return false;
 }
+
 int main()
 {
     faster();
-    int t;
-    cin >> t;
-    while (t--)
+    int test = 1;
+    cin >> test;
+    // clear();
+    while (test--)
     {
-        solve();
+        ll n, m;
+        cin >> n >> m;
+        if (m > n)
+            swap(n, m);
+        if (process(n, m))
+        {
+            cout << "YES" << endl;
+        }
+        else
+        {
+            cout << "NO" << endl;
+        }
     }
+    // pause();
     return 0;
 }

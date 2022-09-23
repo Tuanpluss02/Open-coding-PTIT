@@ -21,17 +21,24 @@
 #define pause() system("pause");
 
 using namespace std;
-
-ll cal(ll l, ll r)
+ll power(ll a, ll b)
 {
-    return floor(sqrt(r)) - ceil(sqrt(l)) + 1;
+    ll ans = 1;
+    while (b)
+    {
+        if (b & 1)
+            ans = (ans * a) % Mod;
+        a = (a * a) % Mod;
+        b >>= 1;
+    }
+    return ans;
 }
 
 void solve()
 {
-    ll l, r;
-    cin >> l >> r;
-    cout << cal(l, r) << '\n';
+    ll a, n;
+    cin >> a >> n;
+    cout << power(a, n) << endl;
 }
 
 int main()
@@ -44,6 +51,6 @@ int main()
     {
         solve();
     }
-    // pause();
+    pause();
     return 0;
 }

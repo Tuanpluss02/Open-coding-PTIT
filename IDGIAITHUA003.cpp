@@ -22,16 +22,36 @@
 
 using namespace std;
 
-ll cal(ll l, ll r)
+ll power(ll a, ll b)
 {
-    return floor(sqrt(r)) - ceil(sqrt(l)) + 1;
+    ll ans = 1;
+    while (b)
+    {
+        if (b & 1)
+            ans = (ans * a);
+        a = (a * a);
+        b >>= 1;
+    }
+    return ans;
+}
+
+ll xxx(ll n)
+{
+    ll res = 0;
+    ll i = 1;
+    while (power(5, i) <= n)
+    {
+        res += n / power(5, i);
+        i++;
+    }
+    return res;
 }
 
 void solve()
 {
-    ll l, r;
-    cin >> l >> r;
-    cout << cal(l, r) << '\n';
+    ll n;
+    cin >> n;
+    cout << xxx(n) << endl;
 }
 
 int main()
