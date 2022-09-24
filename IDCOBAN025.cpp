@@ -4,6 +4,7 @@
     ios_base::sync_with_stdio(0); \
     cin.tie(0);                   \
     cout.tie(0);
+#define clean() cin.ignore(numeric_limits<streamsize>::max(), '\n');
 #define pb push_back
 #define fi first
 #define se second
@@ -21,17 +22,32 @@
 
 using namespace std;
 
+ll cata(ll n, ll k)
+{
+    ll res = 1;
+
+    if (k > n - k)
+        k = n - k;
+    for (ll i = 0; i < k; ++i)
+    {
+        res *= (n - i);
+        res /= (i + 1);
+    }
+
+    return res;
+}
+
+lli catalan(ll n)
+{
+    lli c = cata(2 * n, n);
+    return c / (n + 1);
+}
+
 void solve()
 {
     ll n;
     cin >> n;
-    vec v(n + 1);
-    For(i, 1, n + 1) v[i] = i;
-    do
-    {
-        For(i, 1, n + 1) cout << v[i] << (i < n ? " " : "\n");
-
-    } while (next_permutation(v.begin() + 1, v.end()));
+    cout << catalan(n) << endl;
 }
 
 int main()
@@ -39,7 +55,7 @@ int main()
     faster();
     int test = 1;
     cin >> test;
-    // clear();
+    // clean();
     while (test--)
     {
         solve();

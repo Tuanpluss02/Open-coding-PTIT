@@ -4,6 +4,7 @@
     ios_base::sync_with_stdio(0); \
     cin.tie(0);                   \
     cout.tie(0);
+#define clear() cin.ignore(numeric_limits<streamsize>::max(), '\n');
 #define pb push_back
 #define fi first
 #define se second
@@ -23,15 +24,34 @@ using namespace std;
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vec v(n + 1);
-    For(i, 1, n + 1) v[i] = i;
-    do
+    ll n, sum;
+    cin >> n >> sum;
+    if (n == sum)
     {
-        For(i, 1, n + 1) cout << v[i] << (i < n ? " " : "\n");
-
-    } while (next_permutation(v.begin() + 1, v.end()));
+        cout << 1 << endl;
+        return;
+    }
+    if (n < sum)
+    {
+        cout << 0 << endl;
+        return;
+    }
+    vec a(n);
+    For(i, 0, n)
+    {
+        a[i] = i + 1;
+    }
+    ll count = 0;
+    For(i, 0, n)
+    {
+        For(j, 0, n)
+        {
+            if (binary_search(a.begin(), a.end(), sum - a[i] - a[j]))
+            {
+                count++;
+            }
+        }
+    }
 }
 
 int main()

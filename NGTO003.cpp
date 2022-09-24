@@ -4,6 +4,7 @@
     ios_base::sync_with_stdio(0); \
     cin.tie(0);                   \
     cout.tie(0);
+#define clear() cin.ignore(numeric_limits<streamsize>::max(), '\n');
 #define pb push_back
 #define fi first
 #define se second
@@ -21,17 +22,34 @@
 
 using namespace std;
 
+bool check(ll n)
+{
+    if (n < 2)
+        return false;
+    if (n <= 3)
+        return true;
+    if (n % 2 == 0 || n % 3 == 0)
+        return false;
+    for (ll i = 5; i * i <= n; i += 6)
+    {
+        if (n % i == 0 || n % (i + 2) == 0)
+            return false;
+    }
+    return true;
+}
 void solve()
 {
     ll n;
     cin >> n;
-    vec v(n + 1);
-    For(i, 1, n + 1) v[i] = i;
-    do
+    while (true)
     {
-        For(i, 1, n + 1) cout << v[i] << (i < n ? " " : "\n");
-
-    } while (next_permutation(v.begin() + 1, v.end()));
+        if (check(n) && check(n - 2))
+        {
+            cout << n << endl;
+            return;
+        }
+        n++;
+    }
 }
 
 int main()

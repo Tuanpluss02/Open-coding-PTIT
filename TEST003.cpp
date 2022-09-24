@@ -4,6 +4,7 @@
     ios_base::sync_with_stdio(0); \
     cin.tie(0);                   \
     cout.tie(0);
+#define clean() cin.ignore(numeric_limits<streamsize>::max(), '\n');
 #define pb push_back
 #define fi first
 #define se second
@@ -25,13 +26,43 @@ void solve()
 {
     ll n;
     cin >> n;
-    vec v(n + 1);
-    For(i, 1, n + 1) v[i] = i;
-    do
+    map<ll, ll> m;
+    while (!(n & 1))
     {
-        For(i, 1, n + 1) cout << v[i] << (i < n ? " " : "\n");
-
-    } while (next_permutation(v.begin() + 1, v.end()));
+        m[2]++;
+        n >>= 1;
+    }
+    while (n % 3 == 0)
+    {
+        m[3]++;
+        n /= 3;
+    }
+    for (ll i = 5; i * i <= n; i += 6)
+    {
+        while (n % i == 0)
+        {
+            m[i]++;
+            n /= i;
+        }
+        while (n % (i + 2) == 0)
+        {
+            m[i + 2]++;
+            n /= (i + 2);
+        }
+    }
+    if (n > 1)
+        m[n]++;
+    ll mx = 0;
+    pair<ll, ll> p;
+    for (auto i : m)
+    {
+        if (i.se > mx)
+        {
+            mx = i.se;
+            p = i;
+        }
+    }
+    cout << p.fi << " " << p.se << endl;
 }
 
 int main()
@@ -39,7 +70,7 @@ int main()
     faster();
     int test = 1;
     cin >> test;
-    // clear();
+    // clean();
     while (test--)
     {
         solve();

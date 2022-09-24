@@ -4,6 +4,7 @@
     ios_base::sync_with_stdio(0); \
     cin.tie(0);                   \
     cout.tie(0);
+#define clean() cin.ignore(numeric_limits<streamsize>::max(), '\n');
 #define pb push_back
 #define fi first
 #define se second
@@ -11,8 +12,8 @@
 #define ld long double
 #define ll long long
 #define lli unsigned long long int
-#define For(i, a, b) for (int i = a; i < b; ++i)
-#define Forr(i, a, b) for (int i = a; i >= b; --i)
+#define For(i, x, y) for (int i = x; i < y; ++i)
+#define Forr(i, x, y) for (int i = x; i >= y; --i)
 #define vec vector<ll>
 #define sortu(c) sort(c.begin(), c.end())
 #define sortd(c) sort(c.rbegin(), c.rend())
@@ -23,15 +24,23 @@ using namespace std;
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vec v(n + 1);
-    For(i, 1, n + 1) v[i] = i;
-    do
+    ll x, y, m;
+    cin >> x >> y >> m;
+    if (x == 0 || m == 0 || m < x)
     {
-        For(i, 1, n + 1) cout << v[i] << (i < n ? " " : "\n");
-
-    } while (next_permutation(v.begin() + 1, v.end()));
+        cout << 0 << endl;
+        return;
+    }
+    ll res = m / x, tmp = 0;
+    m /= x;
+    while (m > 0)
+    {
+        res += m / y;
+        tmp += m % y;
+        m /= y;
+    }
+    res += tmp / y;
+    cout << res << endl;
 }
 
 int main()
@@ -39,7 +48,7 @@ int main()
     faster();
     int test = 1;
     cin >> test;
-    // clear();
+    // clean();
     while (test--)
     {
         solve();

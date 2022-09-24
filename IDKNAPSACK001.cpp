@@ -11,9 +11,8 @@
 #define Mod 1000000007
 #define ld long double
 #define ll long long
-#define lli unsigned long long int
-#define For(i, a, b) for (int i = a; i < b; ++i)
-#define Forr(i, a, b) for (int i = a; i >= b; --i)
+#define For(i, a, b) for (ll i = a; i < b; ++i)
+#define Forr(i, a, b) for (ll i = a; i >= b; --i)
 #define vec vector<ll>
 #define sortu(c) sort(c.begin(), c.end())
 #define sortd(c) sort(c.rbegin(), c.rend())
@@ -21,35 +20,45 @@
 #define pause() system("pause");
 
 using namespace std;
-lli power(lli a, lli b)
-{
-    lli ans = 1;
-    while (b)
-    {
-        if (b & 1)
-            ans = (ans * a) % Mod;
-        a = (a * a) % Mod;
-        b >>= 1;
-    }
-    return ans;
-}
 
-void solve()
+ll solve(ll W, ll wt[], ll val[], ll n)
 {
-    lli a, n;
-    cin >> a >> n;
-    cout << power(a, n) << endl;
+    ll dp[W + 1];
+    memset(dp, 0, sizeof(dp));
+
+    for (ll i = 1; i < n + 1; i++)
+    {
+        for (ll w = W; w >= 0; w--)
+        {
+
+            if (wt[i - 1] <= w)
+                dp[w] = max(dp[w], dp[w - wt[i - 1]] + val[i - 1]);
+        }
+    }
+    return dp[W];
 }
 
 int main()
 {
     faster();
-    int test = 1;
+    ll test = 1;
     cin >> test;
     // clear();
     while (test--)
     {
-        solve();
+        ll n, w;
+        cin >> n >> w;
+        ll val[n], wt[n];
+
+        For(i, 0, n)
+        {
+            cin >> wt[i];
+        }
+        For(i, 0, n)
+        {
+            cin >> val[i];
+        }
+        cout << solve(w, wt, val, n) << endl;
     }
     // pause();
     return 0;

@@ -21,39 +21,68 @@
 #define pause() system("pause");
 
 using namespace std;
+ll ans[1000005];
 
-void solve()
+ll cal(ll n)
 {
-    ll n, m, tmp;
-    cin >> n >> m;
-    map<ll, ll> mp;
-    For(i, 0, n)
+    ll mx = -1e9;
+    while (!(n & 1))
     {
-        cin >> tmp;
-        if (!mp.count(tmp))
-            mp[tmp] = i + 1;
+        mx = max(mx, 2ll);
+        n >>= 1;
     }
-    For(i, 0, m)
+    while (n % 3 == 0)
     {
-        cin >> tmp;
-        if (mp.count(tmp))
+        mx = max(mx, 3ll);
+        n /= 3;
+    }
+    for (ll i = 5; i * i <= n; i += 6)
+    {
+        while (n % i == 0)
         {
-            cout << mp[tmp] << " ";
+            mx = max(mx, i);
+            n /= i;
         }
-        else
+        while (n % (i + 2) == 0)
         {
-            cout << 0 << " ";
+            mx = max(mx, i + 2);
+            n /= (i + 2);
         }
     }
+    if (n > 1)
+        mx = max(mx, n);
+    return mx;
 }
-
+void pro(ll n)
+{
+    For(i, 2, n) ans[i] = cal(i);
+}
 int main()
 {
     faster();
+
     int test = 1;
+    cin >> test;
+    if (test < 10)
+    {
+        pro(999);
+    }
+    else
+    {
+        pro(1000005);
+    }
+    // clear();
     while (test--)
     {
-        solve();
+        ll n;
+        cin >> n;
+        ll res = 0;
+        For(i, 2, n + 1)
+        {
+            res += ans[i];
+        }
+        cout << res << endl;
     }
+    // pause();
     return 0;
 }
