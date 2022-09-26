@@ -4,7 +4,7 @@
     ios_base::sync_with_stdio(0); \
     cin.tie(0);                   \
     cout.tie(0);
-#define clear() cin.ignore(numeric_limits<streamsize>::max(), '\n');
+#define clean() cin.ignore(numeric_limits<streamsize>::max(), '\n');
 #define pb push_back
 #define fi first
 #define se second
@@ -21,43 +21,43 @@
 #define pause() system("pause");
 
 using namespace std;
+ll n, res = 0;
+ll arr[1000000];
 
-bool check(vec a, ll n)
-{
-    ll x = a[1] - a[0];
-    For(i, 2, n)
-    {
-        if (a[i] <= a[i - 1] || a[i] - a[i - 1] != x)
-            return false;
-    }
-    return true;
-}
-
+// void Try()
+// {
+// }
 void solve()
 {
-    ll n;
-    cin >> n;
-    vec v(n);
-    For(i, 0, n)
+    ll n, k, sum;
+    cin >> n >> k >> sum;
+    // count subarray has k elements and sum of them is sum
+    ll a[n];
+    For(i, 0, n) cin >> a[i];
+    ll l = 0, r = 0, s = 0, cnt = 0;
+    while (r < n)
     {
-        cin >> v[i];
+        s += a[r];
+        if (r - l + 1 < k)
+            r++;
+        else if (r - l + 1 == k)
+        {
+            if (s == sum)
+                cnt++;
+            s -= a[l];
+            l++;
+            r++;
+        }
     }
-    sortu(v);
-    if (n == 1)
-    {
-        cout << "NO";
-        return;
-    }
-
-    cout << (check(v, n) ? "YES" : "NO");
+    cout << cnt << endl;
 }
 
 int main()
 {
     faster();
     int test = 1;
-    // cin >> test;
-    // clear();
+    cin >> test;
+    // clean();
     while (test--)
     {
         solve();

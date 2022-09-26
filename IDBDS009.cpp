@@ -4,7 +4,7 @@
     ios_base::sync_with_stdio(0); \
     cin.tie(0);                   \
     cout.tie(0);
-#define clear() cin.ignore(numeric_limits<streamsize>::max(), '\n');
+#define clean() cin.ignore(numeric_limits<streamsize>::max(), '\n');
 #define pb push_back
 #define fi first
 #define se second
@@ -22,42 +22,34 @@
 
 using namespace std;
 
-bool check(vec a, ll n)
+map<ll, ll> m;
+
+ll fibo(ll n)
 {
-    ll x = a[1] - a[0];
-    For(i, 2, n)
+    if (m.count(n))
+        return m[n];
+    ll tmp = n / 2;
+    if (!(n & 1))
     {
-        if (a[i] <= a[i - 1] || a[i] - a[i - 1] != x)
-            return false;
+        return m[n] = (fibo(tmp) * fibo(tmp) + fibo(tmp - 1) * fibo(tmp - 1)) % Mod;
     }
-    return true;
+    return m[n] = (fibo(tmp) * fibo(tmp + 1) + fibo(tmp - 1) * fibo(tmp)) % Mod;
 }
 
 void solve()
 {
     ll n;
     cin >> n;
-    vec v(n);
-    For(i, 0, n)
-    {
-        cin >> v[i];
-    }
-    sortu(v);
-    if (n == 1)
-    {
-        cout << "NO";
-        return;
-    }
-
-    cout << (check(v, n) ? "YES" : "NO");
+    cout << (n == 0 ? 0 : fibo(n - 1)) << endl;
 }
 
 int main()
 {
     faster();
+    m[0] = m[1] = 1;
     int test = 1;
-    // cin >> test;
-    // clear();
+    cin >> test;
+    // clean();
     while (test--)
     {
         solve();

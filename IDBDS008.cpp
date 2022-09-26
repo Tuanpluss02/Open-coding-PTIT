@@ -4,7 +4,7 @@
     ios_base::sync_with_stdio(0); \
     cin.tie(0);                   \
     cout.tie(0);
-#define clear() cin.ignore(numeric_limits<streamsize>::max(), '\n');
+#define clean() cin.ignore(numeric_limits<streamsize>::max(), '\n');
 #define pb push_back
 #define fi first
 #define se second
@@ -22,42 +22,32 @@
 
 using namespace std;
 
-bool check(vec a, ll n)
+ll power(ll a, ll n)
 {
-    ll x = a[1] - a[0];
-    For(i, 2, n)
+    ll ans = 1;
+    while (n)
     {
-        if (a[i] <= a[i - 1] || a[i] - a[i - 1] != x)
-            return false;
+        if (n & 1)
+            ans = (ans * a) % Mod;
+        a = (a * a) % Mod;
+        n >>= 1;
     }
-    return true;
+    return ans;
 }
 
 void solve()
 {
     ll n;
     cin >> n;
-    vec v(n);
-    For(i, 0, n)
-    {
-        cin >> v[i];
-    }
-    sortu(v);
-    if (n == 1)
-    {
-        cout << "NO";
-        return;
-    }
-
-    cout << (check(v, n) ? "YES" : "NO");
+    cout << (n & 1 ? -1 : power(2, n / 2 - 1)) << endl;
 }
 
 int main()
 {
     faster();
     int test = 1;
-    // cin >> test;
-    // clear();
+    cin >> test;
+    // clean();
     while (test--)
     {
         solve();
