@@ -12,8 +12,8 @@
 #define ld long double
 #define ll long long
 #define lli unsigned long long int
-#define For(i, a, b) for (int i = a; i < b; ++i)
-#define Forr(i, a, b) for (int i = a; i >= b; --i)
+#define For(i, a, b) for (ll i = a; i < b; ++i)
+#define Forr(i, a, b) for (ll i = a; i >= b; --i)
 #define vec vector<ll>
 #define sortu(c) sort(c.begin(), c.end())
 #define sortd(c) sort(c.rbegin(), c.rend())
@@ -22,29 +22,46 @@
 
 using namespace std;
 
-lli power(lli a, lli b, lli m)
+#define MAX 500
+
+ll mul(ll x, ll res[], ll len)
 {
-    lli ans = 1;
-    while (b)
+    ll car = 0;
+    for (ll i = 0; i < len; i++)
     {
-        if (b & 1)
-            ans = (ans * a) % m;
-        a = (a * a) % m;
-        b >>= 1;
+        ll tmp = res[i] * x + car;
+        res[i] = tmp % 10;
+
+        car = tmp / 10;
     }
-    return ans;
+
+    while (car)
+    {
+        res[len] = car % 10;
+        car = car / 10;
+        len++;
+    }
+    return len;
+}
+
+void fact(ll n)
+{
+    ll res[MAX];
+    res[0] = 1;
+    ll len = 1;
+    for (ll x = 2; x <= n; x++)
+        len = mul(x, res, len);
+
+    for (ll i = len - 1; i >= 0; i--)
+        cout << res[i];
 }
 
 void solve()
 {
-    lli a, b, m;
-    cin >> a >> b >> m;
-    ll firstM;
-    double y = (double)b * log10(a * 1.0);
-    y = y - (ll)y;
-    double temp = pow(10.0, y);
-    firstM = temp * (1LL) * pow(10, m - 1);
-    cout << firstM << endl;
+    ll n;
+    cin >> n;
+    fact(n);
+    cout << endl;
 }
 
 int main()
@@ -52,7 +69,7 @@ int main()
     faster();
     int test = 1;
     cin >> test;
-    clean();
+    // clean();
     while (test--)
     {
         solve();

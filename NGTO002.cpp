@@ -4,7 +4,7 @@
     ios_base::sync_with_stdio(0); \
     cin.tie(0);                   \
     cout.tie(0);
-#define clear() cin.ignore(numeric_limits<streamsize>::max(), '\n');
+#define clean() cin.ignore(numeric_limits<streamsize>::max(), '\n');
 #define pb push_back
 #define fi first
 #define se second
@@ -19,36 +19,51 @@
 #define sortd(c) sort(c.rbegin(), c.rend())
 #define rev(c) reverse(c.begin(), c.end())
 #define pause() system("pause");
-#define PI 3.14159265358979323846
-#define epsi 1e-5
+
 using namespace std;
+
+int prime[5800000], idx = 0;
+void sieve()
+{
+#define MAXL (100000000 >> 5) + 1
+#define GET(x) (mark[x >> 5] >> (x & 31) & 1)
+#define SET(x) (mark[x >> 5] |= 1 << (x & 31))
+    static int mark[MAXL] = {};
+    SET(1);
+    int n = 100000000;
+    for (int i = 2; i <= n; i++)
+    {
+        if (!GET(i))
+        {
+            for (int k = n / i, j = i * k; k >= i; k--, j -= i)
+                SET(j);
+            prime[idx++] = i;
+        }
+    }
+}
 
 void solve()
 {
-    float S, T, x, lt, gt;
-    int car = -1;
-    cin >> x;
-    if (x > 15)
+    ll l, r;
+    cin >> l >> r;
+    ll res = 0;
+    For(i, 0, idx)
     {
-        cout << fixed << setprecision(6) << sin(x) << endl;
-        return;
+        if (prime[i] >= l && prime[i] <= r)
+            res++;
+        if (prime[i] > r)
+            break;
     }
-    gt = 1;
-    S = T = lt = x;
-    for (int i = 3; T > epsi, i <= 45; i += 2, car = -car)
-    {
-        T = (lt *= x * x) / (gt *= i * (i - 1));
-        S += car * T;
-    }
-    cout << fixed << setprecision(6) << S << endl;
+    cout << res << endl;
 }
 
 int main()
 {
     faster();
+    sieve();
     int test = 1;
     cin >> test;
-    // clear();
+    // clean();
     while (test--)
     {
         solve();

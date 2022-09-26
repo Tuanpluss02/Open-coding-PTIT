@@ -4,7 +4,7 @@
     ios_base::sync_with_stdio(0); \
     cin.tie(0);                   \
     cout.tie(0);
-#define clear() cin.ignore(numeric_limits<streamsize>::max(), '\n');
+#define clean() cin.ignore(numeric_limits<streamsize>::max(), '\n');
 #define pb push_back
 #define fi first
 #define se second
@@ -19,28 +19,39 @@
 #define sortd(c) sort(c.rbegin(), c.rend())
 #define rev(c) reverse(c.begin(), c.end())
 #define pause() system("pause");
-#define PI 3.14159265358979323846
-#define epsi 1e-5
+
 using namespace std;
+vec v;
+void pro(ll n)
+{
+
+    for (int i = 1; i <= sqrt(n); i++)
+    {
+        if (n % i == 0)
+        {
+
+            if (n / i == i)
+                v.pb(i);
+            else
+            {
+                v.pb(i);
+                v.push_back(n / i);
+            }
+        }
+    }
+}
 
 void solve()
 {
-    float S, T, x, lt, gt;
-    int car = -1;
-    cin >> x;
-    if (x > 15)
+    ll n;
+    cin >> n;
+    pro(n);
+    sortu(v);
+    for (int i = 0; i < v.size(); i++)
     {
-        cout << fixed << setprecision(6) << sin(x) << endl;
-        return;
+        cout << v[i] << " ";
     }
-    gt = 1;
-    S = T = lt = x;
-    for (int i = 3; T > epsi, i <= 45; i += 2, car = -car)
-    {
-        T = (lt *= x * x) / (gt *= i * (i - 1));
-        S += car * T;
-    }
-    cout << fixed << setprecision(6) << S << endl;
+    cout << endl;
 }
 
 int main()
@@ -48,7 +59,7 @@ int main()
     faster();
     int test = 1;
     cin >> test;
-    // clear();
+    // clean();
     while (test--)
     {
         solve();

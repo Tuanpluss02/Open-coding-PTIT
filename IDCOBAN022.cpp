@@ -26,20 +26,14 @@ void solve()
 {
     ll x, y, m;
     cin >> x >> y >> m;
-    if (x == 0 || m == 0 || m < x)
+    ll res = m / x;
+    ll tmp = res;
+    while (tmp >= y)
     {
-        cout << 0 << endl;
-        return;
+        ll tmp2 = tmp / y;
+        res += tmp2;
+        tmp = tmp2 + tmp % y;
     }
-    ll res = m / x, tmp = 0;
-    m /= x;
-    while (m > 0)
-    {
-        res += m / y;
-        tmp += m % y;
-        m /= y;
-    }
-    res += tmp / y;
     cout << res << endl;
 }
 

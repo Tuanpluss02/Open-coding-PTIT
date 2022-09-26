@@ -22,20 +22,36 @@
 
 using namespace std;
 
+lli power(lli a, lli b)
+{
+    lli res = 1;
+    while (b)
+    {
+        if (b & 1)
+            res = (res * a) % Mod;
+        a = (a * a) % Mod;
+        b >>= 1;
+    }
+    return res;
+}
+
 void solve()
 {
-    string a, b;
+    // string a, b;
+    // cin >> a >> b;
+    // ll A = 0, B = 0;
+    // for (char c : a)
+    //     (A = A * 10 + c - '0') % Mod;
+    // for (char c : b)
+    //     (B = B * 10 + c - '0') % (Mod - 1);
+    // ll ans = 1;
+    // for (; B; A = A * A % Mod, B /= 2)
+    //     if (B & 1)
+    //         (ans *= A) %= Mod;
+    // cout << ans;
+    lli a, b;
     cin >> a >> b;
-    ll A = 0, B = 0;
-    for (char c : a)
-        (A = A * 10 + c - '0') % Mod;
-    for (char c : b)
-        (B = B * 10 + c - '0') % (Mod - 1);
-    ll ans = 1;
-    for (; B; A = A * A % Mod, B /= 2)
-        if (B & 1)
-            (ans *= A) %= Mod;
-    cout << ans;
+    cout << power(a, b) << endl;
 }
 
 int main()
@@ -47,8 +63,6 @@ int main()
     while (test--)
     {
         solve();
-        if (test)
-            cout << " " << endl;
     }
     // pause();
     return 0;

@@ -22,34 +22,26 @@
 
 using namespace std;
 
-map<ll, ll> prime;
-ll idx = 0;
-void sieve()
+bool isPrime(ll n)
 {
-#define MAXL (100000000 >> 5) + 1
-#define GET(x) (mark[x >> 5] >> (x & 31) & 1)
-#define SET(x) (mark[x >> 5] |= 1 << (x & 31))
-    static int mark[MAXL] = {};
-    SET(1);
-    int n = 100000;
-    for (int i = 2; i <= n; i++)
-    {
-        if (!GET(i))
-        {
-            for (int k = n / i, j = i * k; k >= i; k--, j -= i)
-                SET(j);
-            prime[i] = idx++;
-        }
-    }
+    if (n < 2)
+        return false;
+    if (n <= 3)
+        return true;
+    if (n % 2 == 0 || n % 3 == 0)
+        return false;
+    for (ll i = 5; i * i <= n; i += 6)
+        if (n % i == 0 || n % (i + 2) == 0)
+            return false;
+    return true;
 }
-
 void solve()
 {
     ll n, m;
     cin >> n >> m;
-    Forr(i, m - 1, n + 1)
+    Forr(i, m, n)
     {
-        if (prime.count(i))
+        if (isPrime(i))
         {
             cout << i << endl;
             return;
@@ -60,7 +52,6 @@ void solve()
 int main()
 {
     faster();
-    sieve();
     int test = 1;
     cin >> test;
     // clear();

@@ -21,30 +21,40 @@
 #define pause() system("pause");
 
 using namespace std;
-
-lli power(lli a, lli b, lli m)
+string mul(string s1, string s2)
 {
-    lli ans = 1;
-    while (b)
+    string res = "";
+    int n = s1.size();
+    int m = s2.size();
+    res.assign(m + n, '0');
+    for (int i = n - 1; i >= 0; i--)
     {
-        if (b & 1)
-            ans = (ans * a) % m;
-        a = (a * a) % m;
-        b >>= 1;
+        for (int j = m - 1; j >= 0; j--)
+        {
+            int mul = (s1[i] - '0') * (s2[j] - '0');
+            int p1 = i + j, p2 = i + j + 1;
+            int sum = mul + (res[p2] - '0');
+            res[p2] = sum % 10 + '0';
+            res[p1] += sum / 10;
+        }
     }
-    return ans;
+    while (res[0] == '0' && res.length() > 1)
+    {
+        res.erase(0, 1);
+    }
+    return res;
 }
 
 void solve()
 {
-    lli a, b, m;
-    cin >> a >> b >> m;
-    ll firstM;
-    double y = (double)b * log10(a * 1.0);
-    y = y - (ll)y;
-    double temp = pow(10.0, y);
-    firstM = temp * (1LL) * pow(10, m - 1);
-    cout << firstM << endl;
+    int n, k;
+    cin >> n >> k;
+    string res = "1";
+    For(i, n - k + 1, n + 1)
+    {
+        res = mul(res, to_string(i));
+    }
+    cout << res << endl;
 }
 
 int main()
@@ -52,7 +62,7 @@ int main()
     faster();
     int test = 1;
     cin >> test;
-    clean();
+    // clean();
     while (test--)
     {
         solve();
@@ -60,3 +70,8 @@ int main()
     // pause();
     return 0;
 }
+/*
+6! = 1 2 3 4 5  6
+(6-2)! = 1 2 3 4
+5 6
+*/

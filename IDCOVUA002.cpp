@@ -22,29 +22,45 @@
 
 using namespace std;
 
-lli power(lli a, lli b, lli m)
+int n;
+vector<int> x;
+vector<bool> c1;
+vector<bool> c2;
+vector<bool> c;
+ll res = 0;
+
+bool check(int i, int j)
 {
-    lli ans = 1;
-    while (b)
-    {
-        if (b & 1)
-            ans = (ans * a) % m;
-        a = (a * a) % m;
-        b >>= 1;
-    }
-    return ans;
+    if (c[j] == false || c1[i - j + n - 1] == false || c2[i + j - 2] == false)
+        return false;
+    return true;
+}
+
+void queen(int i)
+{
+    for (int j = 1; j <= n; j++)
+        if (check(i, j))
+        {
+            x[i] = j;
+            c[j] = c1[i - j + n - 1] = c2[i + j - 2] = false;
+            if (i == n)
+                res++;
+            else
+                queen(i + 1);
+            c[j] = c1[i - j + n - 1] = c2[i + j - 2] = true;
+        }
 }
 
 void solve()
 {
-    lli a, b, m;
-    cin >> a >> b >> m;
-    ll firstM;
-    double y = (double)b * log10(a * 1.0);
-    y = y - (ll)y;
-    double temp = pow(10.0, y);
-    firstM = temp * (1LL) * pow(10, m - 1);
-    cout << firstM << endl;
+    cin >> n;
+    x.resize(n + 1);
+    c.resize(n + 1, true);
+    c1.resize(2 * n - 1, true);
+    c2.resize(2 * n - 1, true);
+    queen(1);
+    cout << res << endl;
+    res = 0;
 }
 
 int main()
@@ -52,7 +68,7 @@ int main()
     faster();
     int test = 1;
     cin >> test;
-    clean();
+    // clean();
     while (test--)
     {
         solve();

@@ -4,7 +4,7 @@
     ios_base::sync_with_stdio(0); \
     cin.tie(0);                   \
     cout.tie(0);
-#define clear() cin.ignore(numeric_limits<streamsize>::max(), '\n');
+#define clean() cin.ignore(numeric_limits<streamsize>::max(), '\n');
 #define pb push_back
 #define fi first
 #define se second
@@ -19,28 +19,11 @@
 #define sortd(c) sort(c.rbegin(), c.rend())
 #define rev(c) reverse(c.begin(), c.end())
 #define pause() system("pause");
-#define PI 3.14159265358979323846
-#define epsi 1e-5
+
 using namespace std;
 
 void solve()
 {
-    float S, T, x, lt, gt;
-    int car = -1;
-    cin >> x;
-    if (x > 15)
-    {
-        cout << fixed << setprecision(6) << sin(x) << endl;
-        return;
-    }
-    gt = 1;
-    S = T = lt = x;
-    for (int i = 3; T > epsi, i <= 45; i += 2, car = -car)
-    {
-        T = (lt *= x * x) / (gt *= i * (i - 1));
-        S += car * T;
-    }
-    cout << fixed << setprecision(6) << S << endl;
 }
 
 int main()
@@ -48,7 +31,7 @@ int main()
     faster();
     int test = 1;
     cin >> test;
-    // clear();
+    // clean();
     while (test--)
     {
         solve();

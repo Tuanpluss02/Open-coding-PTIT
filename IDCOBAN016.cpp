@@ -4,7 +4,7 @@
     ios_base::sync_with_stdio(0); \
     cin.tie(0);                   \
     cout.tie(0);
-#define clear() cin.ignore(numeric_limits<streamsize>::max(), '\n');
+#define clean() cin.ignore(numeric_limits<streamsize>::max(), '\n');
 #define pb push_back
 #define fi first
 #define se second
@@ -21,40 +21,38 @@
 #define pause() system("pause");
 
 using namespace std;
-bool check(ll n)
+ll num[1000001];
+void solve()
 {
-    ll tmp = n;
-    ll mx = -1e9;
-    while (!(n & 1))
+    ll n;
+    cin >> n;
+    ll len = 2 * n;
+    ll c = 0;
+    For(i, 1, len)
     {
-        mx = max(mx, 2ll);
-        n >>= 1;
-    }
-    while (n % 3 == 0)
-    {
-        mx = max(mx, 3ll);
-        n /= 3;
-    }
-    for (ll i = 5; i * i <= n; i += 6)
-    {
-        while (n % i == 0)
+        if (i <= n)
         {
-            mx = max(mx, i);
-            n /= i;
+            c += i;
         }
-        while (n % (i + 2) == 0)
+        else
         {
-            mx = max(mx, i + 2);
-            n /= (i + 2);
+            c += (len - i);
+        }
+        num[i] = c % 10;
+        c /= 10;
+    }
+    if (c)
+    {
+        cout << c;
+    }
+    else
+    {
+        Forr(i, len - 1, 1)
+        {
+            cout << num[i];
         }
     }
-    if (n > 1)
-        mx = max(mx, n);
-    if (mx > sqrt(tmp))
-    {
-        return true;
-    }
-    return false;
+    cout << endl;
 }
 
 int main()
@@ -62,19 +60,10 @@ int main()
     faster();
     int test = 1;
     cin >> test;
-    // clear();
+    // clean();
     while (test--)
     {
-        ll n;
-        cin >> n;
-        Forr(i, n, 2)
-        {
-            if (check(i))
-            {
-                cout << i << endl;
-                break;
-            }
-        }
+        solve();
     }
     // pause();
     return 0;

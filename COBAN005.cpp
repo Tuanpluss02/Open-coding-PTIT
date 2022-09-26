@@ -22,20 +22,31 @@
 
 using namespace std;
 
+ll power(ll a, ll b)
+{
+    ll ans = 1;
+    while (b)
+    {
+        if (b & 1)
+            ans = (ans * a) % MOD;
+        a = (a * a) % MOD;
+        b >>= 1;
+    }
+    return ans;
+}
+
 void solve()
 {
     string a, b;
     cin >> a >> b;
-    long long A = 0, B = 0;
-    for (char c : a)
-        (A = A * 10 + c - '0') % MOD;
-    for (char c : b)
-        (B = B * 10 + c - '0') % (MOD - 1);
-    long long ans = 1;
-    for (; B; A = A * A % MOD, B /= 2)
-        if (B & 1)
-            (ans *= A) %= MOD;
-    cout << ans << '\n';
+    ll x = 0, y = 0;
+    for (auto i : a)
+        x = (x * 10 + (i - '0')) % MOD;
+    for (auto i : b)
+        y = (y * 10 + (i - '0')) % MOD;
+    ll res = power((x % MOD), (y % (MOD - 1)));
+    res %= MOD;
+    cout << res << endl;
 }
 
 int main()

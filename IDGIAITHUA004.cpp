@@ -21,11 +21,46 @@
 #define pause() system("pause");
 
 using namespace std;
+ll n, k, m;
+
+ll fact(ll n, ll m)
+{
+    ll res = 1;
+    for (int i = 1; i <= n; ++i)
+    {
+        res = (res * i) % m;
+    }
+    return res;
+}
+
+ll power(ll a, ll b)
+{
+    ll res = 1;
+    while (b)
+    {
+        if (b & 1)
+            res = (res * a);
+        a = (a * a);
+        b >>= 1;
+    }
+    return res;
+}
+
+ll C(ll N, ll K)
+{
+    if (K > N)
+    {
+        return 0;
+    }
+    return (((fact(n, m) * power(fact(n - k, m), m - 2)) % m) * power(fact(k, m), m - 2)) % m;
+}
 
 void solve()
 {
-}
 
+    cin >> n >> k >> m;
+    cout << C(n, k) << endl;
+}
 int main()
 {
     faster();
