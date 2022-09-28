@@ -21,26 +21,37 @@
 #define pause() system("pause");
 
 using namespace std;
+map<ll, ll> m;
+
+ll fibo(ll n)
+{
+    if (m.count(n))
+        return m[n];
+    ll tmp = n / 2;
+    if (!(n & 1))
+    {
+        return m[n] = (fibo(tmp) * fibo(tmp) + fibo(tmp - 1) * fibo(tmp - 1)) % Mod;
+    }
+    return m[n] = (fibo(tmp) * fibo(tmp + 1) + fibo(tmp - 1) * fibo(tmp)) % Mod;
+}
 
 void solve()
 {
     ll n;
     cin >> n;
-    vec a(n);
-    For(i, 0, n)
-    {
-        cin >> a[i];
-    }
-    ll mx = *max_element(a.begin(), a.end());
-    ll idx = find(a.begin(), a.end(), mx) - a.begin();
-    cout << mx << '\n'
-         << idx + 1;
+    cout << (n == 0 ? 0 : fibo(n)) << endl;
 }
-
 int main()
 {
     faster();
-    solve();
+    m[0] = m[1] = 1;
+    int test = 1;
+    cin >> test;
+    // clean();
+    while (test--)
+    {
+        solve();
+    }
     // pause();
     return 0;
 }

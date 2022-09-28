@@ -27,20 +27,33 @@ void solve()
     ll n;
     cin >> n;
     vec a(n);
+    For(i, 0, n) cin >> a[i];
+    ll c1 = 0, c2 = 0;
     For(i, 0, n)
     {
-        cin >> a[i];
+        if (a[i] == 0)
+        {
+            cout << -1 << '\n';
+            return;
+        }
+        if (a[i] > 0)
+            c1++;
+        else
+            c2++;
     }
-    ll mx = *max_element(a.begin(), a.end());
-    ll idx = find(a.begin(), a.end(), mx) - a.begin();
-    cout << mx << '\n'
-         << idx + 1;
+    cout << min(c1, c2) << '\n';
 }
 
 int main()
 {
     faster();
-    solve();
+    int test = 1;
+    cin >> test;
+    // clean();
+    while (test--)
+    {
+        solve();
+    }
     // pause();
     return 0;
 }

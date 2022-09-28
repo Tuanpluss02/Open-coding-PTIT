@@ -22,25 +22,53 @@
 
 using namespace std;
 
+ll binary_search(ll a[], ll l, ll r, ll x)
+{
+    while (l <= r)
+    {
+        ll m = l + (r - l) / 2;
+        if (a[m] == x)
+            return m;
+        if (a[m] < x)
+            l = m + 1;
+        else
+            r = m - 1;
+    }
+    return -1;
+}
+
 void solve()
 {
-    ll n;
-    cin >> n;
-    vec a(n);
-    For(i, 0, n)
+    ll n, x;
+    cin >> n >> x;
+    if (x != n / 2 || n < 4)
     {
-        cin >> a[i];
+        cout << -1 << '\n';
+        return;
     }
-    ll mx = *max_element(a.begin(), a.end());
-    ll idx = find(a.begin(), a.end(), mx) - a.begin();
-    cout << mx << '\n'
-         << idx + 1;
+    ll mid = n / 2;
+    For(i, mid, n)
+    {
+        cout << i + 1 << " ";
+    }
+    For(i, 0, mid)
+    {
+        cout << i + 1 << " ";
+    }
+
+    cout << endl;
 }
 
 int main()
 {
     faster();
-    solve();
+    int test = 1;
+    cin >> test;
+    // clean();
+    while (test--)
+    {
+        solve();
+    }
     // pause();
     return 0;
 }

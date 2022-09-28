@@ -21,26 +21,46 @@
 #define pause() system("pause");
 
 using namespace std;
-
+ll a[105][105], dp[105][105];
 void solve()
 {
-    ll n;
-    cin >> n;
-    vec a(n);
-    For(i, 0, n)
+    ll n, m, ans = 0;
+    cin >> n >> m;
+    For(i, 1, m + 1)
+        dp[0][i] = dp[n + 1][i] = -1e9;
+    For(i, 1, n + 1)
     {
-        cin >> a[i];
+        For(j, 1, m)
+        {
+            cin >> a[i][j];
+        }
     }
-    ll mx = *max_element(a.begin(), a.end());
-    ll idx = find(a.begin(), a.end(), mx) - a.begin();
-    cout << mx << '\n'
-         << idx + 1;
+
+    For(j, 1, m + 1)
+    {
+        For(i, 1, n + 1)
+        {
+            dp[i][j] = a[i][j] + max(dp[i - 1][j - 1], max(dp[i][j - 1], dp[i + 1][j - 1]));
+        }
+    }
+
+    For(i, 1, n + 1)
+    {
+        ans = max(ans, dp[i][m]);
+    }
+    cout << ans << '\n';
 }
 
 int main()
 {
     faster();
-    solve();
+    int test = 1;
+    cin >> test;
+    // clean();
+    while (test--)
+    {
+        solve();
+    }
     // pause();
     return 0;
 }
