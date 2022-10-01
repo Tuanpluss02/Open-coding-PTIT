@@ -39,31 +39,29 @@ public:
     }
     matrix operator*(matrix b)
     {
-        matrix tmp = *this;
         matrix c;
         c.len = len;
         For(i, 0, len)
         {
-
             For(j, 0, len)
             {
+                c.arr[i][j] = 0;
                 For(k, 0, len)
                 {
-                    c.arr[i][j] = tmp.arr[i][k] * b.arr[k][j];
-                    c.arr[i][j] %= Mod;
+                    c.arr[i][j] = (c.arr[i][j] + arr[i][k] * b.arr[k][j]) % Mod;
                 }
             }
         }
         return c;
     }
-    matrix power(ll n)
+    matrix power(matrix x, ll n)
     {
         if (n == 1)
-            return *this;
-        matrix tmp = power(n / 2);
-        if (n % 2 == 0)
-            return tmp * tmp;
-        return tmp * tmp * (*this);
+            return x;
+        if (n % 2 != 0)
+            return power(x, n - 1) * x;
+        matrix tmp = power(x, n / 2);
+        return tmp * tmp;
     }
 };
 
@@ -80,7 +78,7 @@ void solve()
         }
     }
     res.len = x;
-    res = res.power(y);
+    res = res.power(res, y);
     For(i, 0, x)
     {
         For(j, 0, x)
