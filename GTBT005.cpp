@@ -20,7 +20,7 @@
 #define rev(c) reverse(c.begin(), c.end())
 #define pause() system("pause");
 #define PI 3.14159265358979323846
-#define epsi 1e-5
+#define epsi 1e-6
 using namespace std;
 
 void solve()
@@ -30,17 +30,21 @@ void solve()
     cin >> x;
     if (x > 15)
     {
-        cout << fixed << setprecision(6) << sin(x) << endl;
+        cout << fixed << setprecision(7) << sin(x) << endl;
+        // return;
+        string s = to_string(sin(x));
+        string tmp = s.substr(s.size() - 3, 4);
+        cout << tmp << endl;
         return;
     }
     gt = 1;
     S = T = lt = x;
-    for (int i = 3; T > epsi, i <= 45; i += 2, car = -car)
+    for (int i = 3; T > epsi; i += 2, car = -car)
     {
         T = (lt *= x * x) / (gt *= i * (i - 1));
         S += car * T;
     }
-    cout << fixed << setprecision(6) << S << endl;
+    cout << fixed << setprecision(7) << S << endl;
 }
 
 int main()

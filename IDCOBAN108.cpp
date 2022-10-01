@@ -4,7 +4,7 @@
     ios_base::sync_with_stdio(0); \
     cin.tie(0);                   \
     cout.tie(0);
-#define clear() cin.ignore(numeric_limits<streamsize>::max(), '\n');
+#define clean() cin.ignore(numeric_limits<streamsize>::max(), '\n');
 #define pb push_back
 #define fi first
 #define se second
@@ -12,8 +12,8 @@
 #define ld long double
 #define ll long long
 #define lli unsigned long long int
-#define For(i, a, b) for (int i = a; i < b; ++i)
-#define Forr(i, a, b) for (int i = a; i >= b; --i)
+#define For(i, a, b) for (ll i = a; i < b; ++i)
+#define Forr(i, a, b) for (ll i = a; i >= b; --i)
 #define vec vector<ll>
 #define sortu(c) sort(c.begin(), c.end())
 #define sortd(c) sort(c.rbegin(), c.rend())
@@ -21,37 +21,45 @@
 #define pause() system("pause");
 
 using namespace std;
+vector<string> res;
 
-ll res = 0;
-void back()
+void pre()
 {
+    queue<string> q;
+    q.push("6");
+    q.push("8");
+    while (!q.empty())
+    {
+        string s = q.front();
+        q.pop();
+        if (s.size() > 20)
+            break;
+        res.push_back(s);
+        q.push(s + "6");
+        q.push(s + "8");
+    }
 }
 
 void solve()
 {
-    ll n, m, x, y;
-    cin >> n >> m;
-    ll a[n][m];
-    For(i, 0, n)
-    {
-        For(j, 0, m)
-        {
-            cin >> a[i][j];
-        }
-    }
-    cin >> x >> y;
+    ll x;
+    cin >> x;
+    cout << res.size() << endl;
+    // for (auto i : res)
+    //     cout << i << " ";
 }
 
 int main()
 {
     faster();
+    pre();
     int test = 1;
     cin >> test;
-    // clear();
+    // clean();
     while (test--)
     {
         solve();
     }
-    pause();
+    // pause();
     return 0;
 }

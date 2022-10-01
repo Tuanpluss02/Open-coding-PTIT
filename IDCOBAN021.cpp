@@ -22,46 +22,48 @@
 
 using namespace std;
 ll a, b, c, len;
-ll arr[1000000];
+string res;
 
-bool check(ll n)
+string next_per(string s)
 {
-    string s = to_string(n);
-    ll l = s.length();
-    if (l & 1)
-        return false;
-    ll x = 0, y = 0;
-    for (auto i : s)
+    int i = s.size() - 1;
+    while (i > 0 && s[i - 1] >= s[i])
+        i--;
+    if (i <= 0)
+        return "0";
+    int j = s.size() - 1;
+    while (s[j] <= s[i - 1])
+        j--;
+    swap(s[i - 1], s[j]);
+    j = s.size() - 1;
+    while (i < j)
     {
-        if (i - '0' == b)
-            x++;
-        else
-            y++;
+        swap(s[i], s[j]);
+        i++;
+        j--;
     }
-    if (x == y)
-        return true;
-    return false;
+    return s;
 }
 
-ll gen(ll arr[], ll n)
+ll gen(string s, ll n)
 {
-    do
+    ll sum = 0;
+    // cout << s << endl;
+    for (auto i : s)
     {
-        ll sum = 0;
-        For(i, 0, n)
-        {
-            sum = sum * 10 + arr[i];
-        }
-        // cout << sum << endl;
-        if (sum >= a && check(sum))
-            return sum;
-    } while (next_permutation(arr, arr + n));
-
-    arr[len] = b;
-    arr[len + 1] = c;
-    len += 2;
-    sort(arr, arr + len);
-    return gen(arr, len);
+        sum = sum * 10 + i - '0';
+    }
+    if (sum >= a)
+        return sum;
+    string tmp = next_per(s);
+    if (tmp == "0")
+    {
+        s.pb(b + '0');
+        s.pb(c + '0');
+        len += 2;
+        sortu(s);
+    }
+    return gen(next_per(s), n);
 }
 
 void solve()
@@ -74,11 +76,12 @@ void solve()
         len++;
     for (int i = 0; i < len; i++)
         if (i < len / 2)
-            arr[i] = b;
+            res.pb(b + '0');
         else
-            arr[i] = c;
-    sort(arr, arr + len);
-    cout << gen(arr, len) << endl;
+            res.pb(c + '0');
+    sortu(res);
+    // cout << res << endl;
+    cout << gen(res, a) << endl;
 }
 
 int main()

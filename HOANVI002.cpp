@@ -41,22 +41,21 @@ void solve()
 {
     ll n, x;
     cin >> n >> x;
-    if (x != n / 2 || n < 4)
+    if (x == 0)
+    {
+        For(i, 1, n + 1) cout << i << " ";
+        cout << '\n';
+        return;
+    }
+    if (x != n / 2 || (n & 1))
     {
         cout << -1 << '\n';
         return;
     }
-    ll mid = n / 2;
-    For(i, mid, n)
-    {
-        cout << i + 1 << " ";
-    }
-    For(i, 0, mid)
-    {
-        cout << i + 1 << " ";
-    }
 
-    cout << endl;
+    For(i, x + 1, n + 1) cout << i << " ";
+    For(i, 1, x + 1) cout << i << " ";
+    cout << '\n';
 }
 
 int main()

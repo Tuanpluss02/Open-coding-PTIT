@@ -4,7 +4,7 @@
     ios_base::sync_with_stdio(0); \
     cin.tie(0);                   \
     cout.tie(0);
-#define clear() cin.ignore(numeric_limits<streamsize>::max(), '\n');
+#define clean() cin.ignore(numeric_limits<streamsize>::max(), '\n');
 #define pb push_back
 #define fi first
 #define se second
@@ -12,8 +12,8 @@
 #define ld long double
 #define ll long long
 #define lli unsigned long long int
-#define For(i, a, b) for (int i = a; i < b; ++i)
-#define Forr(i, a, b) for (int i = a; i >= b; --i)
+#define For(i, a, b) for (ll i = a; i < b; ++i)
+#define Forr(i, a, b) for (ll i = a; i >= b; --i)
 #define vec vector<ll>
 #define sortu(c) sort(c.begin(), c.end())
 #define sortd(c) sort(c.rbegin(), c.rend())
@@ -22,36 +22,45 @@
 
 using namespace std;
 
-ll res = 0;
-void back()
-{
-}
-
 void solve()
 {
-    ll n, m, x, y;
-    cin >> n >> m;
-    ll a[n][m];
+    ll n;
+    cin >> n;
+    vec v(n);
+
     For(i, 0, n)
     {
-        For(j, 0, m)
-        {
-            cin >> a[i][j];
-        }
+        cin >> v[i];
     }
-    cin >> x >> y;
+    sortu(v);
+    ll res = 0;
+    ll tmp;
+    while (v.size() > 1)
+    {
+        tmp = v[0] + v[1];
+        res += tmp;
+        v.erase(v.begin());
+        v.erase(v.begin());
+        v.pb(tmp);
+        sortu(v);
+    }
+    cout << res << endl;
 }
+// 2 4 1 2 10 2 3
+// 2 2 3 4 10
+// 3 4 10
+// 4 10
 
 int main()
 {
     faster();
     int test = 1;
     cin >> test;
-    // clear();
+    // clean();
     while (test--)
     {
         solve();
     }
-    pause();
+    // pause();
     return 0;
 }

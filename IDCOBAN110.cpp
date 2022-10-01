@@ -12,52 +12,68 @@
 #define ld long double
 #define ll long long
 #define lli unsigned long long int
-#define For(i, a, b) for (int i = a; i < b; ++i)
-#define Forr(i, a, b) for (int i = a; i >= b; --i)
-#define vec vector<ll>
+#define For(i, a, b) for (lli i = a; i < b; ++i)
+#define Forr(i, a, b) for (lli i = a; i >= b; --i)
+#define vec vector<lli>
 #define sortu(c) sort(c.begin(), c.end())
 #define sortd(c) sort(c.rbegin(), c.rend())
 #define rev(c) reverse(c.begin(), c.end())
 #define pause() system("pause");
 
 using namespace std;
-ll a[200][200], dp[200][200];
+lli a[1001];
+map<lli, lli> m;
+lli count_div(lli n)
+{
+
+    lli res = 1;
+    map<lli, lli> m;
+    while (!(n & 1))
+    {
+        n >>= 1;
+        m[2]++;
+    }
+    while (n % 3 == 0)
+    {
+        n /= 3;
+        m[3]++;
+    }
+    for (lli i = 5; i * i <= n; i += 6)
+    {
+        while (n % i == 0)
+        {
+            n /= i;
+            m[i]++;
+        }
+        while (n % (i + 2) == 0)
+        {
+            n /= (i + 2);
+            m[i + 2]++;
+        }
+    }
+    if (n > 1)
+        m[n]++;
+    for (auto i : m)
+    {
+        res *= (i.second + 1);
+    }
+    return res;
+}
+
+void pre()
+{
+}
 
 void solve()
 {
-    ll n, m, ans = -Mod;
-    cin >> n >> m;
-    For(i, 1, m + 1)
-        dp[0][i] = dp[n + 1][i] = -Mod;
-    For(i, 1, n + 1)
-    {
-        For(j, 1, m + 1)
-        {
-            cin >> a[i][j];
-        }
-    }
-    if (m == 1 && n == 1)
-    {
-        cout << a[1][1] << '\n';
-        return;
-    }
-    For(j, 1, m + 1)
-    {
-        For(i, 1, n + 1)
-        {
-            dp[i][j] = a[i][j] + max(dp[i - 1][j - 1], max(dp[i][j - 1], dp[i + 1][j - 1]));
-        }
-    }
-    For(i, 1, n + 1)
-    {
-        ans = max(ans, dp[i][m]);
-    }
-    cout << ans << '\n';
+    lli n;
+    // cin >> n;
+    // cout << m[n] << endl;
 }
-
 int main()
 {
     faster();
+    pre();
     int test = 1;
     cin >> test;
     // clean();
