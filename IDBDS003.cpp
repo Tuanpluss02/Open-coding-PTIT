@@ -11,7 +11,7 @@
 #define Mod 1000000007
 #define ld long double
 #define ll long long
-#define lli unsigned long long int
+#define lli unsigned long long
 #define For(i, a, b) for (ll i = a; i < b; ++i)
 #define Forr(i, a, b) for (ll i = a; i >= b; --i)
 #define vec vector<ll>
@@ -21,47 +21,38 @@
 #define pause() system("pause");
 
 using namespace std;
-ll f[45];
-ll k;
-void init()
-{
-    f[0] = 1;
-    f[1] = 2;
-    For(i, 2, 45)
-    {
-        f[i] = f[i - 1] + f[i - 2];
-    }
-}
 
-ll cal(ll x, ll y, ll end)
+ll cal(ll n, ll k)
 {
-    if (y == 0)
+    ll res[n + 1][k + 1];
+    For(i, 0, n + 1)
     {
-        if (x == 0)
-            return 1;
-        return 0;
+        For(j, 0, min(i, k) + 1)
+        {
+            if (j == 0 || j == i)
+                res[i][j] = 1;
+            else
+                res[i][j] = res[i - 1][j - 1] + res[i - 1][j];
+        }
     }
-    ll sum = 0;
-    for (ll i = end; i >= 0 && f[i] * y >= x; i--)
-    {
-        if (f[i] > x)
-            continue;
-        sum += cal(x - f[i], y - 1, i);
-    }
-    return sum;
+    return res[n][k];
 }
 
 void solve()
 {
-    ll n;
+    ll n, k;
     cin >> n >> k;
-    cout << cal(n, k, 44) << endl;
+    if (n < k)
+    {
+        cout << 0 << endl;
+        return;
+    }
+    cout << cal(n - 1, k - 1) << endl;
 }
 
 int main()
 {
     faster();
-    init();
     int test = 1;
     cin >> test;
     // clean();

@@ -1,7 +1,26 @@
 #include <bits/stdc++.h>
-#define s second
-#define f first
+
+#define faster()                  \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+#define clean() cin.ignore(numeric_limits<streamsize>::max(), '\n');
+#define pb push_back
+#define fi first
+#define se second
+#define Mod 1000000007
+#define ld long double
 #define ll long long
+#define lli unsigned long long int
+#define For(i, a, b) for (ll i = a; i < b; ++i)
+#define Forr(i, a, b) for (ll i = a; i >= b; --i)
+#define vec vector<ll>
+#define sortu(c) sort(c.begin(), c.end())
+#define sortd(c) sort(c.rbegin(), c.rend())
+#define rev(c) reverse(c.begin(), c.end())
+#define pause() system("pause");
+
+using namespace std;
 
 ll cal(ll a, ll b)
 {
@@ -40,7 +59,7 @@ ll sum_dev(ll n)
         m[n]++;
     for (auto i : m)
     {
-        res *= cal(i.f, i.s);
+        res *= cal(i.fi, i.se);
     }
     return res;
 }
@@ -62,8 +81,24 @@ void solve()
 {
     ll x;
     cin >> x;
-    cout << sum_dev(power(2004, x)) % 29 << endl;
+    // cout << 2004 * 2004 << endl;
+    // cout << sum_dev(power(2004, x)) % 29 << endl;
     // cout << sum_dev(2004) << endl;
+    For(i, 1, 2005)
+    {
+        if (2004 % i == 0)
+        {
+            cout << i << " ";
+        }
+    }
+    cout << endl;
+    For(i, 1, 4016017)
+    {
+        if (4016016 % i == 0)
+        {
+            cout << i << " ";
+        }
+    }
 }
 
 int main()

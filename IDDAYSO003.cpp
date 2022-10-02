@@ -21,47 +21,44 @@
 #define pause() system("pause");
 
 using namespace std;
-ll f[45];
-ll k;
-void init()
-{
-    f[0] = 1;
-    f[1] = 2;
-    For(i, 2, 45)
-    {
-        f[i] = f[i - 1] + f[i - 2];
-    }
-}
-
-ll cal(ll x, ll y, ll end)
-{
-    if (y == 0)
-    {
-        if (x == 0)
-            return 1;
-        return 0;
-    }
-    ll sum = 0;
-    for (ll i = end; i >= 0 && f[i] * y >= x; i--)
-    {
-        if (f[i] > x)
-            continue;
-        sum += cal(x - f[i], y - 1, i);
-    }
-    return sum;
-}
 
 void solve()
 {
-    ll n;
+    ll n, k, res = 0;
     cin >> n >> k;
-    cout << cal(n, k, 44) << endl;
+    vec v(n);
+    For(i, 0, n) cin >> v[i];
+    if (k == n)
+    {
+        cout << 1 << endl;
+        return;
+    }
+    sortu(v);
+    ll idx = 0, mx = 0;
+    while (idx + 1 <= k)
+    {
+        mx += v[idx];
+        idx++;
+    }
+    ll tmp = mx;
+    tmp -= v[idx - 1];
+    For(i, idx, n)
+    {
+        if (tmp + v[i] == mx)
+        {
+            res++;
+        }
+        else if (tmp + v[i] > mx)
+        {
+            break;
+        }
+    }
+    cout << res + 1 << endl;
 }
 
 int main()
 {
     faster();
-    init();
     int test = 1;
     cin >> test;
     // clean();
