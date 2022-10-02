@@ -1,44 +1,34 @@
-#include <bits/stdc++.h>
 
-#define faster()                  \
-    ios_base::sync_with_stdio(0); \
-    cin.tie(0);                   \
-    cout.tie(0);
-#define clean() cin.ignore(numeric_limits<streamsize>::max(), '\n');
-#define pb push_back
-#define fi first
-#define se second
-#define Mod 1000000007
-#define ld long double
-#define ll long long
-#define lli unsigned long long int
-#define For(i, a, b) for (ll i = a; i < b; ++i)
-#define Forr(i, a, b) for (ll i = a; i >= b; --i)
-#define vec vector<ll>
-#define sortu(c) sort(c.begin(), c.end())
-#define sortd(c) sort(c.rbegin(), c.rend())
-#define rev(c) reverse(c.begin(), c.end())
-#define pause() system("pause");
-
+#include <iostream>
+#include <cmath>
 using namespace std;
 
-void solve()
+// Helper function
+int getAllWaysHelper(int remainingSum, int power, int base)
 {
-    float x;
-    cin >> x;
-    cout << round(x) << endl;
+    // calculate power
+    int result = pow(base, power);
+
+    if (remainingSum == result)
+        return 1;
+    if (remainingSum < result)
+        return 0;
+    // Two recursive calls one to include current base's power in sum another to exclude
+    int x = getAllWaysHelper(remainingSum - result, power, base + 1);
+    int y = getAllWaysHelper(remainingSum, power, base + 1);
+    return x + y;
 }
 
+int getAllWays(int sum, int power)
+{
+    return getAllWaysHelper(sum, power, 1);
+}
+
+// Driver Code.
 int main()
 {
-    faster();
-    int test = 1;
-    cin >> test;
-    // clean();
-    while (test--)
-    {
-        solve();
-    }
-    // pause();
+    int n, x;
+    cin >> n >> x;
+    cout << getAllWays(x, n);
     return 0;
 }

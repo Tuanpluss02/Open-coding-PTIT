@@ -11,10 +11,10 @@
 #define Mod 1000000007
 #define ld long double
 #define ll long long
-#define lli unsigned long long
-#define For(i, a, b) for (lli i = a; i < b; ++i)
-#define Forr(i, a, b) for (lli i = a; i >= b; --i)
-#define vec vector<lli>
+#define lli unsigned long long int
+#define For(i, a, b) for (ll i = a; i < b; ++i)
+#define Forr(i, a, b) for (ll i = a; i >= b; --i)
+#define vec vector<ll>
 #define sortu(c) sort(c.begin(), c.end())
 #define sortd(c) sort(c.rbegin(), c.rend())
 #define rev(c) reverse(c.begin(), c.end())
@@ -22,35 +22,38 @@
 
 using namespace std;
 
-const lli prime[11] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31};
-lli n, res;
-void pro(lli i, lli num, lli div)
+ll power(ll a, ll b)
 {
-    if (div > n)
-        return;
-    if (div == n)
-        res = min(res, num);
-    For(j, 1, 1e18)
+    ll ans = 1;
+    while (b)
     {
-        if (num * prime[i] > res)
-            break;
-        num *= prime[i];
-        pro(i + 1, num, div * (j + 1));
+        if (b & 1)
+            ans = (ans * a);
+        a = (a * a);
+        b >>= 1;
     }
+    return ans;
+}
+
+ll cal(ll n, ll m, ll x)
+{
+    ll ans = power(x, m);
+    if (ans == n)
+        return 1;
+    if (ans > n)
+        return 0;
+    ll a1 = cal(n - ans, m, x + 1);
+    ll a2 = cal(n, m, x + 1);
+    return a1 + a2;
 }
 
 void solve()
 {
-    cin >> n;
-    if (n == 0)
-    {
-        cout << 0 << endl;
-        return;
-    }
-    res = 1e18;
-    pro(0, 1, 1);
-    cout << res << endl;
+    ll n, m;
+    cin >> n >> m;
+    cout << cal(n, m, 1) << endl;
 }
+
 int main()
 {
     faster();

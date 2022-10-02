@@ -12,8 +12,8 @@
 #define ld long double
 #define ll long long
 #define lli unsigned long long int
-#define For(i, a, b) for (int i = a; i < b; ++i)
-#define Forr(i, a, b) for (int i = a; i >= b; --i)
+#define For(i, a, b) for (ll i = a; i < b; ++i)
+#define Forr(i, a, b) for (ll i = a; i >= b; --i)
 #define vec vector<ll>
 #define sortu(c) sort(c.begin(), c.end())
 #define sortd(c) sort(c.rbegin(), c.rend())
@@ -21,41 +21,46 @@
 #define pause() system("pause");
 
 using namespace std;
-ll cal(ll n)
+ll f[93];
+ll k;
+void init()
 {
-    ll res = 0;
-    ll tmp = 5;
-    while (tmp <= n)
+    f[0] = 0;
+    f[1] = 1;
+    For(i, 2, 93)
     {
-        res += n / tmp;
-        tmp *= 5;
+        f[i] = f[i - 1] + f[i - 2];
     }
-    return res;
 }
+
+ll cal(ll n, ll sum, ll idx, ll count)
+{
+    if (f[idx] >= n)
+        return 0;
+    sum += f[idx];
+    if (sum == n && count == k)
+        return 1;
+    if (sum > n || count > k)
+        return 0;
+    ll a = cal(n, 0, idx + 1, count + 1);
+    ll a1 = cal(n, sum, idx + 1, count + 1);
+    ll a2 = cal(n - sum, sum, idx, count + 1);
+    ll a3 = cal(n, sum, idx, count + 1);
+    ll a4 = cal(n - sum, sum, idx, count + 1);
+    return a + a1 + a2 + a3 + a4;
+}
+
 void solve()
 {
     ll n;
-    cin >> n;
-    if (n == 1)
-    {
-        cout << 5 << endl;
-        return;
-    }
-    ll l = 1, r = 5 * n;
-    while (l < r)
-    {
-        ll mid = (l + r) / 2;
-        if (cal(mid) >= n)
-            r = mid;
-        else
-            l = mid + 1;
-    }
-    cout << l << endl;
+    cin >> n >> k;
+    cout << cal(n, 0, 1, 0) << endl;
 }
 
 int main()
 {
     faster();
+    init();
     int test = 1;
     cin >> test;
     // clean();

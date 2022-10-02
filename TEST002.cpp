@@ -22,24 +22,27 @@
 
 using namespace std;
 
-ll res = 0;
-void back()
-{
-}
-
 void solve()
 {
     ll n, m, x, y;
+    ll a[105][105], dp[105][105];
+    ll res = 1e9;
     cin >> n >> m;
-    ll a[n][m];
-    For(i, 0, n)
+    For(i, 1, n + 1)
     {
-        For(j, 0, m)
+        For(j, 1, m + 1)
         {
             cin >> a[i][j];
         }
     }
     cin >> x >> y;
+    For(i, 1, n + 1)
+    {
+        For(j, 1, m + 1)
+        {
+            cin >> a[i][j];
+        }
+    }
 }
 
 int main()
@@ -52,6 +55,6 @@ int main()
     {
         solve();
     }
-    pause();
+    // pause();
     return 0;
 }

@@ -21,41 +21,48 @@
 #define pause() system("pause");
 
 using namespace std;
-
-ll binary_search(ll a[], ll l, ll r, ll x)
-{
-    while (l <= r)
-    {
-        ll m = l + (r - l) / 2;
-        if (a[m] == x)
-            return m;
-        if (a[m] < x)
-            l = m + 1;
-        else
-            r = m - 1;
-    }
-    return -1;
-}
-
+bool vis[1000005];
+int arr[1000005];
 void solve()
 {
-    ll n, x;
-    cin >> n >> x;
-    if (x == 0)
+    ll n, k;
+    cin >> n >> k;
+    memset(vis, false, sizeof(vis));
+    if (k == 0)
     {
         For(i, 1, n + 1) cout << i << " ";
-        cout << '\n';
+        cout << endl;
         return;
     }
-    if (x != n / 2 || (n & 1))
+    For(i, 1, n + 1)
     {
-        cout << -1 << '\n';
-        return;
+        arr[i] = i;
     }
-
-    For(i, x + 1, n + 1) cout << i << " ";
-    For(i, 1, x + 1) cout << i << " ";
-    cout << '\n';
+    int i = 1;
+    while (true)
+    {
+        if (vis[i] == false && i + k <= n)
+        {
+            swap(arr[i], arr[i + k]);
+            vis[i] = vis[i + k] = true;
+        }
+        else
+        {
+            if (vis[i])
+                i++;
+            else
+                break;
+        }
+    }
+    if (count(vis + 1, vis + n + 1, false))
+    {
+        cout << -1 << endl;
+    }
+    else
+    {
+        For(i, 1, n + 1) cout << arr[i] << " ";
+        cout << endl;
+    }
 }
 
 int main()

@@ -22,21 +22,17 @@
 
 using namespace std;
 
-ll tmp(ll n)
-{
-    return (n & (~(n - 1)));
-}
-
 void solve()
 {
     ll n, z;
     cin >> n;
     ll res = 0;
-    for (ll i = 2; i <= n; i += 2)
+    while (n > 0)
     {
-        cout << tmp(i) << " ";
+        n /= 2;
+        res += n;
     }
-    cout << endl;
+    cout << res << endl;
 }
 
 int main()

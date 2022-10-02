@@ -21,38 +21,74 @@
 #define pause() system("pause");
 
 using namespace std;
-vector<string> res;
 
-void pre()
+string mul(string a, string b)
 {
-    queue<string> q;
-    q.push("6");
-    q.push("8");
-    while (!q.empty())
+    string res = "";
+    int n = a.size();
+    int m = b.size();
+    int i, j;
+    int carry = 0;
+    for (i = n - 1; i >= 0; i--)
     {
-        string s = q.front();
-        q.pop();
-        if (s.size() > 20)
-            break;
-        res.push_back(s);
-        q.push(s + "6");
-        q.push(s + "8");
+        int sum = 0;
+        for (j = m - 1; j >= 0; j--)
+        {
+            sum = (a[i] - '0') * (b[j] - '0') + carry;
+            carry = sum / 10;
+            sum = sum % 10;
+            res = (char)(sum + '0') + res;
+        }
+        if (carry > 0)
+        {
+            res = (char)(carry + '0') + res;
+            carry = 0;
+        }
+        res = res + "0";
     }
+    while (res[0] == '0' && res.size() > 1)
+        res.erase(0, 1);
+    return res;
+}
+
+bool check(string s)
+{
+    for (auto i : s)
+        if (i != 6 && i != 8)
+            return false;
+    return true;
 }
 
 void solve()
 {
     ll x;
     cin >> x;
-    cout << res.size() << endl;
-    // for (auto i : res)
-    //     cout << i << " ";
+    if (x % 5 == 0 || x % 7 == 0)
+    {
+        cout << -1 << endl;
+        return;
+    }
+    string s = to_string(x);
+    For(i, 1, 1000000)
+    {
+        string s1 = to_string(i);
+        string s2 = mul(s1, s1);
+        if (s2.length() > 200)
+        {
+            cout << -1 << endl;
+            return;
+        }
+        if (check(s2))
+        {
+            cout << s2 << endl;
+            return;
+        }
+    }
 }
 
 int main()
 {
     faster();
-    pre();
     int test = 1;
     cin >> test;
     // clean();
