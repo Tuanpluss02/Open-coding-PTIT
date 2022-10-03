@@ -12,8 +12,8 @@
 #define ld long double
 #define ll long long
 #define lli unsigned long long int
-#define For(i, a, b) for (ll i = a; i < b; ++i)
-#define Forr(i, a, b) for (ll i = a; i >= b; --i)
+#define For(i, a, b) for (int i = a; i < b; ++i)
+#define Forr(i, a, b) for (int i = a; i >= b; --i)
 #define vec vector<ll>
 #define sortu(c) sort(c.begin(), c.end())
 #define sortd(c) sort(c.rbegin(), c.rend())
@@ -22,50 +22,49 @@
 
 using namespace std;
 
-ll dp[101][21][201];
-
-vec fib;
-void init()
+ll power(ll n, ll k)
 {
-    fib.pb(1);
-    fib.pb(2);
-    For(i, 2, 46)
+    ll ans = 1;
+    while (k)
     {
-        fib.pb(fib[i - 1] + fib[i - 2]);
+        if (k & 1)
+        {
+            ans = ans * n;
+        }
+        n = n * n;
+        k >>= 1;
     }
+    return ans;
 }
 
-ll process(ll i, ll j, ll sum, ll n, ll k)
+ll cal(ll n, ll k)
 {
-    if (i > fib.size() || sum > n)
-        return 0;
-    if (sum == n)
+    if (n == 0)
+        return 1;
+    if (k == 0)
+        return 1;
+    if (n >= power(2, k))
     {
-        if (j == k)
-            return 1;
-        return 0;
+        ll sum = power(2, k);
+        return cal(n - sum, k) + cal(n, k - 1);
     }
-    if (j == k)
-        return 0;
-    if (dp[i][j][sum])
-        return dp[i][j][sum];
-    ll a = process(i + 1, j, sum, n, k);
-    ll b = process(i + 1, j + 1, sum + fib[i], n, k);
-    return dp[i][j][sum] = a + b;
+    else
+    {
+        return cal(n, k - 1);
+    }
 }
 
 void solve()
 {
-    memset(dp, 0, sizeof(dp));
-    ll n, k;
-    cin >> n >> k;
-    cout << process(0, 0, 0, n, k) << endl;
+    ll n;
+    cin >> n;
+    ll k = log2(n);
+    cout << cal(n, k) << endl;
 }
 
 int main()
 {
     faster();
-    init();
     int test = 1;
     cin >> test;
     // clean();

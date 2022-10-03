@@ -11,7 +11,7 @@
 #define Mod 1000000007
 #define ld long double
 #define ll long long
-#define lli unsigned long long int
+#define lli unsigned long long
 #define For(i, a, b) for (ll i = a; i < b; ++i)
 #define Forr(i, a, b) for (ll i = a; i >= b; --i)
 #define vec vector<ll>
@@ -22,50 +22,34 @@
 
 using namespace std;
 
-ll dp[101][21][201];
-
-vec fib;
-void init()
-{
-    fib.pb(1);
-    fib.pb(2);
-    For(i, 2, 46)
-    {
-        fib.pb(fib[i - 1] + fib[i - 2]);
-    }
-}
-
-ll process(ll i, ll j, ll sum, ll n, ll k)
-{
-    if (i > fib.size() || sum > n)
-        return 0;
-    if (sum == n)
-    {
-        if (j == k)
-            return 1;
-        return 0;
-    }
-    if (j == k)
-        return 0;
-    if (dp[i][j][sum])
-        return dp[i][j][sum];
-    ll a = process(i + 1, j, sum, n, k);
-    ll b = process(i + 1, j + 1, sum + fib[i], n, k);
-    return dp[i][j][sum] = a + b;
-}
-
 void solve()
 {
-    memset(dp, 0, sizeof(dp));
-    ll n, k;
-    cin >> n >> k;
-    cout << process(0, 0, 0, n, k) << endl;
+    string s;
+    cin >> s;
+    ll n = s.size();
+    ll cursum = 0;
+    ll mxsum = 0;
+    For(i, 0, n)
+    {
+        cursum += (s[i] == '0' ? 1 : -1);
+        if (cursum < 0)
+            cursum = 0;
+        mxsum = max(cursum, mxsum);
+    }
+    if (mxsum == 0)
+    {
+        cout << -1;
+    }
+    else
+    {
+        cout << mxsum;
+    }
+    cout << endl;
 }
 
 int main()
 {
     faster();
-    init();
     int test = 1;
     cin >> test;
     // clean();

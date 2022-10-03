@@ -22,52 +22,61 @@
 
 using namespace std;
 
+ll dp[101][21][201];
+bool tmp[1002];
 vec prime;
-ll idx, k;
-void sieve(int n)
+
+void sieve()
 {
-#define MAXL (int(1e8) >> 5) + 1
-#define isComp(n) (flag[n >> 5] & (1 << (n & 31)))
-#define setComp(n) (flag[n >> 5] |= (1 << (n & 31)))
-    static int flag[MAXL] = {};
-    setComp(1);
-    for (int i = 2; i <= n; i++)
+    memset(tmp, true, sizeof(tmp));
+    for (ll i = 2; i * i < 1002; i++)
     {
-        if (!isComp(i))
+        if (tmp[i])
         {
-            for (int k = n / i, j = i * k; k >= i; k--, j -= i)
-                setComp(j);
-            prime.pb(i);
+            for (ll j = i * i; j < 1002; j += i)
+            {
+                tmp[j] = false;
+            }
         }
+    }
+    For(i, 2, 1002)
+    {
+        if (tmp[i])
+            prime.pb(i);
     }
 }
 
-ll process(ll n, ll sum, ll index)
+ll process(ll i, ll j, ll sum, ll n, ll k)
 {
-    sum += prime[index];
-    if (sum == n && index == k - 1)
-        return 1;
-    if (sum > n || index + 1 > k)
+    if (i > prime.size() || sum > n)
         return 0;
-    ll a = process(n, sum, index + 1);
-    ll b = process(n, sum - prime[index], index);
-    return a + b;
+    if (sum == n)
+    {
+        if (j == k)
+            return 1;
+        return 0;
+    }
+    if (j == k)
+        return 0;
+    if (dp[i][j][sum])
+        return dp[i][j][sum];
+    ll a = process(i + 1, j, sum, n, k);
+    ll b = process(i + 1, j + 1, sum + prime[i], n, k);
+    return dp[i][j][sum] = a + b;
 }
+
 void solve()
 {
+    memset(dp, 0, sizeof(dp));
     ll n, k;
     cin >> n >> k;
-    // cout << process(n, 1, 1) << endl;
-    for (auto i : prime)
-    {
-        cout << i << " ";
-    }
+    cout << process(0, 0, 0, n, k) << endl;
 }
 
 int main()
 {
     faster();
-    sieve(1e6);
+    sieve();
     int test = 1;
     cin >> test;
     // clean();
