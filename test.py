@@ -1,7 +1,4 @@
 
-from math import factorial
-
-
 for i in range(int(input())):
-    n = int(input())
-    print(factorial(n))
+    a, b = map(int, input().split())
+    print(a+b)

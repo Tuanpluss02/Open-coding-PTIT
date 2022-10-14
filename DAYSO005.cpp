@@ -26,22 +26,19 @@ void solve()
 {
     ll n, tmp;
     cin >> n;
-    map<int, int> m1, m2;
-    m1[0] = m1[1] = m2[0] = m2[1] = 0;
+    map<ll, ll> m;
     For(i, 0, n)
     {
         cin >> tmp;
-        m1[tmp]++;
+        m[tmp]++;
     }
-    For(i, 0, n)
+    ll res = 0;
+    for (auto i : m)
     {
-        cin >> tmp;
-        m2[tmp]++;
+        if (i.se == 1)
+            res++;
     }
-    if (m1[0] == m2[0] && m1[1] == m2[1])
-        cout << 0 << endl;
-    else
-        cout << min(abs(m1[0] - m2[0]), abs(m1[1] - m2[1])) << endl;
+    cout << res << endl;
 }
 
 int main()

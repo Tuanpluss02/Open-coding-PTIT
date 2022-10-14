@@ -24,24 +24,35 @@ using namespace std;
 
 void solve()
 {
-    ll n, tmp;
+    ll n;
     cin >> n;
-    map<int, int> m1, m2;
-    m1[0] = m1[1] = m2[0] = m2[1] = 0;
-    For(i, 0, n)
+    ll a[n + 5], dp[n + 1];
+    For(i, 1, n + 1)
     {
-        cin >> tmp;
-        m1[tmp]++;
+        cin >> a[i];
     }
-    For(i, 0, n)
+    dp[1] = 1;
+    ll res = 1;
+    For(i, 2, n + 1)
     {
-        cin >> tmp;
-        m2[tmp]++;
+        ll l = 1, r = res, j = 0;
+        while (l <= r)
+        {
+            ll mid = (l + r) / 2;
+            if (a[dp[mid]] < a[i])
+            {
+                j = mid;
+                l = mid + 1;
+            }
+            else
+                r = mid - 1;
+        }
+        if (j == res)
+            dp[++res] = i;
+        if (a[dp[j + 1]] > a[i])
+            dp[j + 1] = i;
     }
-    if (m1[0] == m2[0] && m1[1] == m2[1])
-        cout << 0 << endl;
-    else
-        cout << min(abs(m1[0] - m2[0]), abs(m1[1] - m2[1])) << endl;
+    cout << res << endl;
 }
 
 int main()
