@@ -1,4 +1,3 @@
-
-for i in range(int(input())):
-    a, b = map(int, input().split())
-    print(a+b)
+print(100)
+for i in range(100):
+    print(i)

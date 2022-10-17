@@ -51,8 +51,7 @@ void solve()
             while (!st.empty() and top != '(')
             {
 
-                if (top == '+' || top == '-' ||
-                    top == '*' || top == '/')
+                if (top == '-' || top == '*' || top == '/')
                     ok = false;
 
                 top = st.top();
