@@ -24,10 +24,12 @@ using namespace std;
 
 bool check(vec a, ll n)
 {
+    if (n <= 2)
+        return true;
     ll x = a[1] - a[0];
     For(i, 2, n)
     {
-        if (a[i] <= a[i - 1] || a[i] - a[i - 1] != x)
+        if (a[i] - a[i - 1] != x)
             return false;
     }
     return true;
@@ -42,21 +44,22 @@ void solve()
     {
         cin >> v[i];
     }
-    sortu(v);
-    if (n == 1)
+    // sortu(v);
+    if (check(v, n))
     {
-        cout << "NO";
-        return;
+        cout << "YES" << endl;
     }
-
-    cout << (check(v, n) ? "YES" : "NO");
+    else
+    {
+        cout << "NO" << endl;
+    }
 }
 
 int main()
 {
     faster();
     int test = 1;
-    // cin >> test;
+    cin >> test;
     // clear();
     while (test--)
     {
